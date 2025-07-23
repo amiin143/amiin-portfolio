@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me – AmiinTech</title>
+
+   <!-- ====== Google Fonts ====== -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+  
+<!-- Font Awesome CDN for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- ====== ALL CSS ====== -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/css/lightbox.min.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+
+  <style>
+    .hero-section {
+      background:url(assets/images/hero-area/amiin-1.png) no-repeat center center/cover;
+      padding: 100px 20px;
+      position: relative;
+      color: #fff;
+    }
+    
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75); /* dark overlay */
+      z-index: 1;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    
+    .hero-text {
+      flex: 1;
+      padding-right: 40px;
+    }
+    
+    .hero-text h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+    
+    .hero-text p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #f3f3f3;
+    }
+    
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .hero-image img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text {
+        padding-right: 0;
+        margin-bottom: 30px;
+      }
+    }
+    </style>
+</head>
+<body>
+
+
+    <!-- ====== Header ====== -->
+    <header id="header" class="header">
+        <!-- ====== Navbar ====== -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand logo" href="index.html">
+                    <img src="assets/images/logo2.png" alt="logo">
+                </a>
+                <!-- // Logo -->
+
+                <!-- Mobile Menu -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false"><span><i class="fa fa-bars"></i></span></button>
+                <!-- Mobile Menu -->
+
+                <div class="collapse navbar-collapse main-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="index.html">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">ABOUT</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#service">SERVICE</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">PORTFOLIO</a></li>
+                        <li class="nav-item"><a class="nav-link" href="blog.html">BLOG</a></li> -->
+                        <li class="nav-item"><a class="nav-link pr0" href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- ====== // Navbar ====== -->
+    </header>
+    <!-- ====== // Header ====== -->
+
+<!-- ===== Hero Section Start ===== -->
+<section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>About Me</h1>
+        <p>
+          I'm Amiin Qalib — a passionate web & mobile developer, project manager, and tech trainer. I build real-world solutions with creativity, empathy, and strategy.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="assets/images/about-im4.jpg" alt="Amiin Qalib">
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== Hero Section CSS ===== -->
+
+
+ <!-- My Journey Section -->
+<section class="journey-section bg-secondary">
+    <div class="container">
+      <h2 class="section-title">🛤 My Journey</h2>
+  
+      <!-- Profile and Description -->
+      <div class="journey-wrapper">
+        <!-- Profile Image -->
+        <div class="journey-image">
+          <img src="assets/images/about-im2.jpg" alt="My Photo">
+        </div>
+  
+        <!-- Journey Description -->
+        <div class="journey-text">
+          <p>I began coding to make technology more human and helpful. My graduation project at Unity University wasn’t just for marks — I built a working attendance system that was actually used by the university staff.</p>
+          <p>From there, I developed a <strong>Security Management System</strong> for the 31ka May district, and later a full system for <strong>CarFi Motors</strong>. With each project, I improved my problem-solving, design thinking, and user empathy.</p>
+        </div>
+      </div>
+  
+      <!-- Highlights Cards -->
+      <div class="journey-cards">
+        <div class="card">
+          <h4>🎓 Education</h4>
+          <p>BSc in Computer Science<br>Unity University</p>
+        </div>
+        <div class="card">
+          <h4>🛠 Projects</h4>
+          <p>Attendance System<br>Security System<br>CarFi Motors System</p>
+        </div>
+        <div class="card">
+          <h4>🚀 Skills</h4>
+          <p>Problem Solving<br>UI Design<br>Web Development</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- ====== About Values & Skills Section ====== -->
+<section class="section-padding values-skills-section bg-light">
+    <div class="container">
+      <div class="row g-4">
+        
+        <!-- My Values -->
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+              <h3 class="card-title mb-3">💡 My Values</h3>
+              <ul class="list-unstyled ps-3 fs-5">
+                <li>🔍 Technology should first solve human needs</li>
+                <li>🧠 Listening leads to better design</li>
+                <li>📚 Knowledge grows through sharing</li>
+                <li>🌍 Local solutions deserve global quality</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Skills & Tools -->
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+              <h3 class="card-title mb-3">🧰 Skills & Tools</h3>
+              <p class="fs-5">I mainly work with:</p>
+              <ul class="list-group list-group-flush fs-5">
+                <li class="list-group-item">💻 PHP, MySQL, JavaScript, HTML/CSS, Bootstrap</li>
+                <li class="list-group-item">🗂 GitHub, XAMPP, Hosting & Domain setup</li>
+                <li class="list-group-item">📊 Dashboard design, data management, user roles</li>
+                <li class="list-group-item">📝 Technical writing, reports, documentation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+
+   <!-- ====== Who I Am Section ====== -->
+<section id="about" class="py-5" style="background: linear-gradient(145deg, #e0f7fa, #ffffff); border-radius: 20px;">
+  <div class="container px-4">
+    <div class="row align-items-center">
+      
+      <!-- Image Column -->
+      <div class="col-md-5 text-center mb-4 mb-md-0">
+        <img src="assets/images/about-im5.JPG" alt="Amiin Qalib" class="img-fluid rounded-4 shadow" style="max-width: 300px;">
+        <!-- Replace 'your-photo.jpg' with your actual image -->
+      </div>
+      
+      <!-- Text Column -->
+      <div class="col-md-7">
+        <h2 class="fw-bold mb-3" style="font-size: 2.2rem; color: #00796b;">
+          🧍‍♂️ Who I Am
+        </h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #333;">
+          I'm <strong>Amiin Maxamed Mawlid</strong>, a passionate technologist and human-centered problem solver based in <strong>Hargeisa, Somalia</strong>.
+          I hold a Master’s degree in <strong>Project Planning and Management</strong> from Unity University.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #333;">
+          My professional journey includes teaching, volunteering at NGOs like <strong>IFIYE</strong>, and building real systems like the <strong>Security Management System</strong> for local governments.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #333;">
+          Beyond code, I enjoy writing Somali poetry, playing football, telling stories, and taking long, reflective walks to connect with nature and thought.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    
+<!-- ====== Why choose Me Section ====== -->
+<section id="why-choose-me" class="section-padding why-choose-us pb-70 bg-secondary">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6 ">
+                <div class="section-title text-center">
+                    <h2>Why Work With Me?</h2>
+                    <p>Choosing the right person for your project matters. Here's why my clients trust me to turn ideas into real, working solutions.</p>
+                </div>
+            </div>
+        </div>
+        <!-- //Section Title -->
+
+        <div class="row">
+            <!-- Reliable Delivery -->
+            <div class="col-md-6">
+                <div class="single-why-me why-me-left">
+                    <div class="why-me-icon">
+                        <div class="d-table">
+                            <div class="d-table-cell">
+                                <i class="fa fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Always On Time</h4>
+                    <p>Your time is valuable. I plan and deliver every project with clear timelines—no surprises, no delays. You’ll always know what’s happening and when.</p>
+                </div>
+            </div>
+            <!-- // Reliable Delivery -->
+
+            <!-- Practical Solutions -->
+            <div class="col-md-6">
+                <div class="single-why-me why-me-right">
+                    <div class="why-me-icon">
+                        <div class="d-table">
+                            <div class="d-table-cell">
+                                <i class="fa fa-lightbulb"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Real-World Solutions</h4>
+                    <p>I don't just write code—I solve problems. Whether you're a business owner, educator, or organization, I build digital tools that make your work easier and more effective.</p>
+                </div>
+            </div>
+            <!-- // Practical Solutions -->
+
+            <!-- Clear Communication -->
+            <div class="col-md-6">
+                <div class="single-why-me why-me-left">
+                    <div class="why-me-icon">
+                        <div class="d-table">
+                            <div class="d-table-cell">
+                                <i class="fa fa-comments"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Clear & Friendly Communication</h4>
+                    <p>We work together every step of the way. I keep things transparent and jargon-free, making it easy for you to stay in the loop and make informed decisions.</p>
+                </div>
+            </div>
+            <!-- // Clear Communication -->
+
+            <!-- Long-Term Support -->
+            <div class="col-md-6">
+                <div class="single-why-me why-me-right">
+                    <div class="why-me-icon">
+                        <div class="d-table">
+                            <div class="d-table-cell">
+                                <i class="fa fa-handshake"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Long-Term Partnership</h4>
+                    <p>I care about your success beyond launch day. Whether you need updates, training, or ongoing support—I'm here to help you grow, every step of the way.</p>
+                </div>
+            </div>
+            <!-- // Long-Term Support -->
+        </div>
+    </div>
+</section>
+<!-- ====== //Why choose Me Section ====== -->
+
+
+
+<!-- ====== Contact Area ====== -->
+<section id="contact" class="contact-section py-3">
+  <div class="container">
+    <h2>Let's Work Together</h2>
+    <p class="subtitle">
+      Ready to bring your project to life? I'm here to help you build solutions that make a real difference in your community.
+    </p>
+    <div class="contact-wrapper">
+      <!-- Left Form -->
+      <div class="contact-form-box">
+        <h4><i class="fas fa-paper-plane"></i> Send me a message</h4>
+        <form class="contact-form">
+          <div class="form-row">
+            <input type="text" placeholder="First Name" />
+            <input type="text" placeholder="Last Name" />
+          </div>
+          <input type="email" placeholder="Email Address" />
+          <input type="text" placeholder="Project Type" />
+          <textarea placeholder="Message"></textarea>
+          <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+        <p class="form-note">I'll get back to you within 24 hours</p>
+      </div>
+
+      <!-- Right Contact Info -->
+      <div class="contact-info-box">
+        <div class="contact-header">
+          <h4>Get in Touch</h4>
+          <p>
+            Whether you need a complete system, project coordination help, or just want to discuss your ideas, I’m here to help.
+          </p>
+          <span class="location"><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</span>
+        </div>
+        <ul class="contact-items">
+          <li><i class="fas fa-envelope"></i> <span>amiinmoh67@gmail.com</span></li>
+          <li><i class="fas fa-phone"></i> <span>+252 63 3003884</span></li>
+          <li><i class="fab fa-linkedin"></i> <span>linkedin.com/in/amiin-qalib-2304b924b</span></li>
+          <li><i class="fab fa-github"></i> <span>github.com/amiinQalib</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== End Contact Area ====== -->
+
+  
+
+<!-- ====== Footer Start ====== -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h5>Amiin Tech</h5>
+      <p>
+        I’m a passionate Web & Mobile Developer, Project Planner, and Trainer helping businesses and individuals build digital solutions and gain essential tech skills.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h5>Contact</h5>
+      <p><i class="fas fa-phone"></i> +252 63 3003884</p>
+      <p><i class="fas fa-envelope"></i> amiinmoh67@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</p>
+    </div>
+
+    <div class="footer-column">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Projects</a></li>
+        <li><a href="#service">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h5>Follow Me</h5>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Amiin Qalib. All Rights Reserved.
+  </div>
+</footer>
+<!-- ====== Footer End ====== -->
+ <!-- ====== ALL JS ====== -->
+ <script src="assets/js/jquery-3.3.1.min.js"></script>
+ <script src="assets/js/bootstrap.min.js"></script>
+ <script src="assets/js/lightbox.min.js"></script>
+ <script src="assets/js/owl.carousel.min.js"></script>
+ <script src="assets/js/jquery.mixitup.js"></script>
+ <script src="assets/js/wow.min.js"></script>
+ <script src="assets/js/typed.js"></script>
+ <script src="assets/js/skill.bar.js"></script>
+ <script src="assets/js/fact.counter.js"></script>
+ <script src="assets/js/main.js"></script>
+</body>
+</html>
