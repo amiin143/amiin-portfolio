@@ -798,6 +798,11 @@
 
           <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
         </form>
+          
+    <!-- SUCCESS MESSAGE -->
+    <div id="successMessage" class="alert alert-success mt-3 d-none" role="alert">
+      ✅ Thank you! Your message has been sent.
+    </div>
         <p class="form-note">I'll get back to you within 24 hours</p>
       </div>
 
@@ -884,6 +889,37 @@
 </footer>
 <!-- ====== Footer End ====== -->
 
+<script>
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (response.ok) {
+        // Show success message
+        document.getElementById('successMessage').classList.remove('d-none');
+        form.reset(); // clear the form
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert('There was an error. Please try again later.');
+    });
+});
+</script>
 
      <!-- ====== ALL JS ====== -->
    <script src="assets/js/jquery-3.3.1.min.js"></script>
