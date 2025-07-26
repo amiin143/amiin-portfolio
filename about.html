@@ -351,8 +351,6 @@
 </section>
 <!-- ====== //Why choose Me Section ====== -->
 
-
-  
 <!-- ====== Contact Area ====== -->
 <section id="contact" class="contact-section">
   <div class="container">
@@ -364,15 +362,18 @@
       <!-- Left Form -->
       <div class="contact-form-box">
         <h4><i class="fas fa-paper-plane"></i> Send me a message</h4>
-        <form class="contact-form"   action="https://formspree.io/f/mjkowzrw"
-  method="POST">
+        <form class="contact-form" action="https://formspree.io/f/mjkowzrw" method="POST">
           <div class="form-row">
-            <input type="text" placeholder="First Name" />
-            <input type="text" placeholder="Last Name" />
+            <input type="text" name="first_name" placeholder="First Name" required />
+            <input type="text" name="last_name" placeholder="Last Name" required />
           </div>
-          <input type="email" placeholder="Email Address" />
-          <input type="text" placeholder="Project Type" />
-          <textarea placeholder="Message"></textarea>
+          <input type="email" name="email" placeholder="Email Address" required />
+          <input type="text" name="project_type" placeholder="Project Type" />
+          <textarea name="message" placeholder="Message" required></textarea>
+          
+          <!-- Optional: receive reply-to -->
+          <input type="hidden" name="_replyto" value="amiinmoh67@gmail.com" />
+
           <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
         </form>
         <p class="form-note">I'll get back to you within 24 hours</p>
@@ -389,34 +390,31 @@
         </div>
         <ul class="contact-items">
           <li>
-    <i class="fas fa-envelope"></i>
-    <a href="mailto:amiinmoh67@gmail.com">amiinmoh67@gmail.com</a>
-  </li>
-           <li>
-    <i class="fas fa-phone"></i>
-    <a href="tel:+252633003884">+252 63 3003884</a>
-  </li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:amiinmoh67@gmail.com">amiinmoh67@gmail.com</a>
+          </li>
           <li>
-    <i class="fab fa-linkedin"></i>
-    <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank">
-      linkedin.com/in/amiin-qalib-2304b924b
-    </a>
-  </li>
-         <li>
-    <i class="fab fa-github"></i>
-    <a href="https://github.com/amiin143" target="_blank">
-      github.com/amiin143
-    </a>
-  </li>
+            <i class="fas fa-phone"></i>
+            <a href="tel:+252633003884">+252 63 3003884</a>
+          </li>
+          <li>
+            <i class="fab fa-linkedin"></i>
+            <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank">
+              linkedin.com/in/amiin-qalib-2304b924b
+            </a>
+          </li>
+          <li>
+            <i class="fab fa-github"></i>
+            <a href="https://github.com/amiin143" target="_blank">
+              github.com/amiin143
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </section>
-
-
 <!-- ====== End Contact Area ====== -->
-  
 
 <!-- ====== Footer Start ====== -->
 <footer class="site-footer">
