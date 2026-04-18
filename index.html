@@ -12,8 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#3b82f6', // Blue 500
-                        secondary: '#1e293b', // Slate 800
+                        primary: '#2563eb', // Modern Blue
+                        secondary: '#0f172a', // Dark Slate
+                        accent: '#38bdf8' // Light Blue
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -23,186 +24,296 @@
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        /* Custom Animations */
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+        .scale-enter-active, .scale-leave-active { transition: all 0.3s ease; }
+        .scale-enter-from, .scale-leave-to { opacity: 0; transform: scale(0.95); }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-primary selection:text-white">
     <div id="app">
 
-        <nav class="fixed w-full z-50 transition-all duration-300" :class="{ 'bg-white/80 backdrop-blur-md shadow-sm': isScrolled, 'bg-transparent': !isScrolled }">
+        <nav class="fixed w-full z-40 transition-all duration-300" :class="{ 'bg-white/90 backdrop-blur-md shadow-sm py-3': isScrolled, 'bg-transparent py-5': !isScrolled }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-20 items-center">
-                    <a href="#" class="text-2xl font-bold tracking-tighter text-secondary">Amiin<span class="text-primary">Tech.</span></a>
-                    <div class="hidden md:flex space-x-8">
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-2xl font-extrabold tracking-tighter text-secondary flex items-center gap-2">
+                        <img src="assets/logo2.png" alt="AmiinTech Logo" class="h-8 w-auto" onerror="this.style.display='none'"> 
+                        Amiin<span class="text-primary">Tech</span>
+                    </a>
+                    <div class="hidden md:flex space-x-8 items-center">
                         <a href="#home" class="hover:text-primary transition-colors font-medium">Home</a>
                         <a href="#about" class="hover:text-primary transition-colors font-medium">About</a>
                         <a href="#portfolio" class="hover:text-primary transition-colors font-medium">Projects</a>
-                        <a href="#contact" class="px-5 py-2 rounded-full bg-secondary text-white hover:bg-primary transition-all font-medium">Let's Talk</a>
+                        <a href="assets/Amiin_Mohamed_CV.pdf" download class="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white hover:bg-primary transition-all font-medium shadow-lg hover:shadow-primary/30">
+                            <span>Download CV</span>
+                            <i class="fas fa-file-download group-hover:-translate-y-1 transition-transform"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <section id="home" class="pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+            <div class="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl opacity-50 translate-x-1/3 -translate-y-1/4"></div>
+            
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-medium text-sm mb-6">
+                <div class="lg:w-1/2 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-primary font-semibold text-sm mb-6 border border-blue-100 shadow-sm">
                         <span class="relative flex h-3 w-3">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                         </span>
-                        Available for new projects
+                        Master's Student & Full-Stack Developer
                     </div>
-                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-secondary">
-                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">Amiin</span>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6 text-secondary tracking-tight">
+                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Amiin Mowlid</span>
                     </h1>
-                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-                        Web Developer, Project Planner, and Community Problem Solver. I build modern systems that turn complex challenges into simple, elegant digital solutions.
+                    <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        I design and build web systems that solve real-world problems. From leading the development of security platforms to coordinating teams, I make tech work for your goals.
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-semibold hover:shadow-lg hover:-translate-y-1 transition-all">View My Work</a>
-                        <a href="#contact" class="px-8 py-4 rounded-full border-2 border-gray-200 text-secondary font-semibold hover:border-primary hover:text-primary transition-all">Contact Me</a>
+                        <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-bold hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-1 transition-all">Explore Projects</a>
+                        <a href="#about" class="px-8 py-4 rounded-full bg-white border-2 border-slate-200 text-secondary font-bold hover:border-primary hover:text-primary transition-all">My Journey</a>
                     </div>
                 </div>
-                <div class="lg:w-1/2">
-                    <div class="relative w-72 h-72 lg:w-96 lg:h-96 mx-auto bg-gradient-to-tr from-primary to-cyan-300 rounded-full shadow-2xl p-2">
-                        <img src="https://ui-avatars.com/api/?name=Amiin+Mohamed&size=512&background=random" alt="Amiin" class="rounded-full w-full h-full object-cover border-4 border-white">
+                
+                <div class="lg:w-1/2 relative">
+                    <div class="relative w-80 h-80 lg:w-[450px] lg:h-[450px] mx-auto z-10">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-[2rem] rotate-6 opacity-20 transition-transform hover:rotate-12 duration-500"></div>
+                        <img src="assets/hero-area/amiin-1.png" alt="Amiin Mohamed" class="relative z-10 rounded-[2rem] w-full h-full object-cover shadow-2xl border-4 border-white transition-transform hover:-translate-y-2 duration-500" onerror="this.src='https://ui-avatars.com/api/?name=Amiin+Mohamed&size=512'">
+                        
+                        <div class="absolute -bottom-6 -left-6 z-20 glass-card p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce">
+                            <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-2xl">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 font-bold uppercase">CGPA</p>
+                                <p class="text-lg font-extrabold text-secondary">4.89 / 5.00</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <p class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-8">Technologies I use</p>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <div v-for="skill in skills" :key="skill.name" class="flex items-center gap-2 px-5 py-3 bg-gray-50 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                        <i :class="skill.icon + ' text-2xl'" :style="{ color: skill.color }"></i>
-                        <span class="font-semibold text-secondary">{{ skill.name }}</span>
+        <section id="about" class="py-24 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="assets/about-background.jpg" alt="About Amiin" class="rounded-2xl shadow-lg w-full h-64 object-cover" onerror="this.src='https://via.placeholder.com/400'">
+                        <img src="assets/about-im2.jpg" alt="Working" class="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" onerror="this.src='https://via.placeholder.com/400'">
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-4xl font-extrabold text-secondary mb-6">Bridging Tech & Management.</h2>
+                        <p class="text-lg text-slate-600 mb-6">
+                            With a BSc in Computer Science and currently pursuing my Master's in Project Planning and Management (MPPM), I possess a unique blend of technical mastery and strategic foresight. I spent 5 years as a dedicated educator, honing my communication and leadership skills, before fully transitioning into creating high-impact digital solutions.
+                        </p>
+                        
+                        <div class="space-y-6 mt-8">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 text-primary flex items-center justify-center text-xl shrink-0">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-secondary">Full-Stack Development</h4>
+                                    <p class="text-slate-600">Specializing in Laravel, Vue.js, Tailwind CSS, and MySQL to build scalable web applications.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 text-primary flex items-center justify-center text-xl shrink-0">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-secondary">Project Management</h4>
+                                    <p class="text-slate-600">Google Project Management Professional certified. Focused on data analysis, risk management, and team coordination.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="py-24 bg-gray-50">
+        <section id="portfolio" class="py-24 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16">
-                    <h2 class="text-4xl font-bold text-secondary mb-4">Featured Projects</h2>
-                    <p class="text-gray-600">Real-world solutions that address community problems through technology and coordination.</p>
+                    <h2 class="text-4xl font-extrabold text-secondary mb-4">Featured Projects</h2>
+                    <p class="text-lg text-slate-600">Real-world solutions that address community problems through intelligent technology.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div v-for="project in projects" :key="project.title" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
-                        <div class="h-64 overflow-hidden relative bg-gray-200">
-                            <div class="absolute inset-0 bg-secondary opacity-10 group-hover:opacity-0 transition-opacity z-10"></div>
-                            <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center text-gray-400">
-                                <i class="fas fa-image text-5xl"></i>
-                            </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div v-for="project in projects" :key="project.id" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group flex flex-col cursor-pointer" @click="openModal(project)">
+                        <div class="h-56 overflow-hidden relative">
+                            <img :src="project.image" :alt="project.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=Project+Image'">
+                            <div class="absolute inset-0 bg-secondary/20 group-hover:bg-transparent transition-colors"></div>
                         </div>
-                        <div class="p-8">
-                            <span v-if="project.featured" class="inline-block px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full mb-4">⭐ Flagship Project</span>
-                            <span v-else class="inline-block px-3 py-1 bg-blue-100 text-primary text-xs font-bold rounded-full mb-4">Web App</span>
-                            
-                            <h3 class="text-2xl font-bold text-secondary mb-3">{{ project.title }}</h3>
-                            <p class="text-gray-600 mb-6 line-clamp-2">{{ project.description }}</p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span v-for="tech in project.stack" class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-lg font-medium">{{ tech }}</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="mb-3">
+                                <span v-if="project.featured" class="inline-block px-3 py-1 bg-red-100 text-red-600 text-xs font-extrabold rounded-full tracking-wide">⭐ FLAGSHIP</span>
+                                <span v-else class="inline-block px-3 py-1 bg-blue-100 text-primary text-xs font-extrabold rounded-full tracking-wide">WEB APP</span>
                             </div>
+                            <h3 class="text-xl font-bold text-secondary mb-2">{{ project.title }}</h3>
+                            <p class="text-slate-600 mb-4 line-clamp-2 text-sm">{{ project.shortDesc }}</p>
                             
-                            <a :href="project.link" class="inline-flex items-center font-bold text-primary hover:text-secondary transition-colors">
-                                View Details <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+                                <span class="text-sm font-semibold text-primary group-hover:text-secondary transition-colors">View Details &rarr;</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <footer class="bg-secondary text-white py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl font-bold mb-6">Let's build something great together.</h2>
-                <a href="mailto:amiinmoh67@gmail.com" class="text-xl text-gray-300 hover:text-white transition-colors underline decoration-primary underline-offset-8">
+        <transition name="fade">
+            <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center px-4 pt-20 pb-4 bg-secondary/80 backdrop-blur-sm" @click.self="closeModal">
+                <transition name="scale">
+                    <div v-if="isModalOpen" class="bg-white rounded-3xl w-full max-w-4xl max-h-full overflow-y-auto shadow-2xl relative">
+                        <button @click="closeModal" class="absolute top-4 right-4 w-10 h-10 bg-slate-100 hover:bg-red-100 hover:text-red-600 rounded-full flex items-center justify-center transition-colors z-10">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
+
+                        <div v-if="selectedProject">
+                            <div class="h-64 md:h-96 relative">
+                                <img :src="selectedProject.image" :alt="selectedProject.title" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-8 md:p-12">
+                                <h2 class="text-3xl md:text-4xl font-extrabold text-secondary mb-4">{{ selectedProject.title }}</h2>
+                                
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span v-for="tech in selectedProject.stack" class="px-4 py-1.5 bg-slate-100 text-slate-700 text-sm font-bold rounded-lg border border-slate-200">{{ tech }}</span>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                                    <div class="md:col-span-2 space-y-6">
+                                        <div>
+                                            <h4 class="text-xl font-bold text-secondary mb-2">The Problem</h4>
+                                            <p class="text-slate-600 leading-relaxed">{{ selectedProject.problem }}</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-secondary mb-2">The Solution & Outcome</h4>
+                                            <p class="text-slate-600 leading-relaxed">{{ selectedProject.outcome }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 h-fit">
+                                        <h4 class="font-bold text-secondary mb-2">Role</h4>
+                                        <p class="text-slate-600 mb-6">{{ selectedProject.role }}</p>
+                                        
+                                        <a v-if="selectedProject.demoLink" :href="selectedProject.demoLink" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-md shadow-primary/30">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a v-else href="#contact" class="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition-colors" @click="closeModal">
+                                            Request Demo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </transition>
+        <footer id="contact" class="bg-secondary text-white py-16 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('assets/pattarn-black.png')] opacity-10"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 class="text-4xl font-extrabold mb-6">Let's solve the next big problem.</h2>
+                <p class="text-slate-400 mb-8 text-lg">Whether you need a complete digital system, project coordination, or simply want to discuss tech, my inbox is open.</p>
+                <a href="mailto:amiinmoh67@gmail.com" class="inline-block text-2xl md:text-4xl font-bold text-white hover:text-primary transition-colors mb-12">
                     amiinmoh67@gmail.com
                 </a>
                 <div class="flex justify-center gap-6 mt-8">
-                    <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-github"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-xl hover:bg-primary hover:-translate-y-1 transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/amiin143" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-xl hover:bg-primary hover:-translate-y-1 transition-all"><i class="fab fa-github"></i></a>
+                    <a href="https://www.facebook.com/zeramiinjoseph.mahamoud" target="_blank" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-xl hover:bg-primary hover:-translate-y-1 transition-all"><i class="fab fa-facebook-f"></i></a>
                 </div>
-                <p class="text-gray-500 mt-12">© 2026 Amiin Mohamed Mowlid. All Rights Reserved.</p>
+                <p class="text-slate-500 mt-16 font-medium">© 2026 Amiin Mohamed Mowlid. All Rights Reserved.</p>
             </div>
         </footer>
 
-    </div> <script>
+    </div>
+
+    <script>
         const { createApp, ref, onMounted, onUnmounted } = Vue;
 
         createApp({
             setup() {
-                // State for Navigation Bar Scroll Effect
                 const isScrolled = ref(false);
+                const isModalOpen = ref(false);
+                const selectedProject = ref(null);
 
                 const handleScroll = () => {
                     isScrolled.value = window.scrollY > 20;
                 };
 
-                onMounted(() => {
-                    window.addEventListener('scroll', handleScroll);
-                });
+                onMounted(() => window.addEventListener('scroll', handleScroll));
+                onUnmounted(() => window.removeEventListener('scroll', handleScroll));
 
-                onUnmounted(() => {
-                    window.removeEventListener('scroll', handleScroll);
-                });
+                const openModal = (project) => {
+                    selectedProject.value = project;
+                    isModalOpen.value = true;
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                };
 
-                // Skills Data
-                const skills = ref([
-                    { name: 'Vue.js', icon: 'fab fa-vuejs', color: '#4FC08D' },
-                    { name: 'Laravel', icon: 'fab fa-laravel', color: '#FF2D20' },
-                    { name: 'Tailwind CSS', icon: 'fas fa-wind', color: '#38B2AC' },
-                    { name: 'MySQL', icon: 'fas fa-database', color: '#00758F' },
-                    { name: 'PHP', icon: 'fab fa-php', color: '#777BB4' },
-                    { name: 'Project Planning', icon: 'fas fa-tasks', color: '#F59E0B' }
-                ]);
+                const closeModal = () => {
+                    isModalOpen.value = false;
+                    setTimeout(() => { selectedProject.value = null; }, 300);
+                    document.body.style.overflow = 'auto';
+                };
 
-                // Portfolio Projects Data
+                // Projects Data - Images updated to your folder structure
                 const projects = ref([
                     {
+                        id: 1,
                         title: 'Hidoraac System',
-                        description: 'A comprehensive management system for 31ka May District. Solved complex challenges in inventory management, security reporting, and administrative control.',
+                        shortDesc: 'A centralized platform for inventory management, security reporting, and administrative control.',
+                        problem: 'The 31ka May District faced complex challenges in tracking daily inventory, managing security incidents efficiently, and maintaining organized administrative control across different levels of the local government.',
+                        outcome: 'Designed and developed a highly secure, automated platform that streamlines administration. It features real-time reporting, seamless data flow, and an intuitive dashboard for administrators.',
+                        role: 'Lead Full-Stack Developer & Project Manager',
                         featured: true,
+                        image: 'assets/portfolio/img-1.PNG',
                         stack: ['Laravel', 'Tailwind CSS', 'MySQL', 'Blade'],
-                        link: '#'
+                        demoLink: 'http://hidoraac.great-site.net/'
                     },
                     {
+                        id: 2,
                         title: 'Student Attendance Manager',
-                        description: 'A digital solution that replaced manual attendance, improving accuracy, record-keeping, and reporting for local educational institutions.',
+                        shortDesc: 'A digital attendance tracking solution for educational institutions.',
+                        problem: 'Schools were relying on manual paper-based attendance, which led to frequent data loss, inefficiencies, and difficulty in generating monthly reports for students and parents.',
+                        outcome: 'Created a robust web application that digitized the entire process. The system allows teachers to quickly mark attendance and automatically generates insights, saving hours of manual work.',
+                        role: 'System Architect & Developer',
                         featured: false,
-                        stack: ['PHP', 'Bootstrap', 'MySQL'],
-                        link: '#'
+                        image: 'assets/portfolio/img-student-3.png', // Using one of your student images
+                        stack: ['PHP', 'Bootstrap', 'MySQL', 'JavaScript'],
+                        demoLink: null
                     },
                     {
-                        title: 'Modern Portfolio',
-                        description: 'A lightning-fast, fully responsive portfolio built to showcase my professional skills and academic journey.',
+                        id: 3,
+                        title: 'Freelance & Internship Work',
+                        shortDesc: 'Delivered customized digital solutions for various remote clients and startups.',
+                        problem: 'Startups required fast, responsive, and modern user interfaces to launch their products effectively without a heavy initial budget.',
+                        outcome: 'Collaborated remotely to build responsive landing pages, set up Firebase databases, and implement SEO best practices, helping multiple clients successfully establish their digital presence.',
+                        role: 'Web Developer / Intern',
                         featured: false,
-                        stack: ['Vue 3', 'Tailwind CSS', 'Vite'],
-                        link: '#'
-                    },
-                    {
-                        title: 'Socio-Economic Data Analysis',
-                        description: 'Research project analyzing the socioeconomic drivers of child labor involving data from 110 participants.',
-                        featured: false,
-                        stack: ['Data Analysis', 'Project Management', 'Research'],
-                        link: '#'
+                        image: 'assets/portfolio/img-intern-1.png',
+                        stack: ['Vue.js', 'Figma', 'Firebase', 'Git'],
+                        demoLink: null
                     }
                 ]);
 
                 return {
                     isScrolled,
-                    skills,
+                    isModalOpen,
+                    selectedProject,
+                    openModal,
+                    closeModal,
                     projects
                 };
             }
