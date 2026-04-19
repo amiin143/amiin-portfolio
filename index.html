@@ -681,41 +681,53 @@
                     isMobileMenuOpen.value = false; 
                 };
 
-                // FETCHING FROM YOUR EXACT HASHNODE USERNAME
+               // FETCHING FROM YOUR EXACT HASHNODE NEW API (GQL)
                 const fetchHashnodePosts = async () => {
+                    // Hashnode's New GraphQL API structure
                     const query = `
                         query {
-                            user(username: "amiinmoh-qalib") {
-                                publication {
-                                    posts(page: 0) {
-                                        title
-                                        brief
-                                        slug
-                                        coverImage
+                            publication(host: "amiinmoh-qalib.hashnode.dev") {
+                                posts(first: 3) {
+                                    edges {
+                                        node {
+                                            title
+                                            brief
+                                            slug
+                                            coverImage {
+                                                url
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     `;
                     try {
-                        const res = await fetch("https://api.hashnode.com/", {
+                        // Using the new API endpoint
+                        const res = await fetch("https://gql.hashnode.com/", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ query })
                         });
                         const data = await res.json();
                         
-                        if (data.data && data.data.user && data.data.user.publication && data.data.user.publication.posts.length > 0) {
-                            blogPosts.value = data.data.user.publication.posts.slice(0,3).map(post => ({
-                                title: post.title,
-                                brief: post.brief,
-                                url: `https://hashnode.com/@amiinmoh-qalib/${post.slug}`,
-                                coverImage: post.coverImage
-                            }));
+                        // Checking the new data structure
+                        if (data.data && data.data.publication && data.data.publication.posts.edges.length > 0) {
+                            blogPosts.value = data.data.publication.posts.edges.map(edge => {
+                                const post = edge.node;
+                                return {
+                                    title: post.title,
+                                    brief: post.brief,
+                                    url: `https://amiinmoh-qalib.hashnode.dev/${post.slug}`,
+                                    coverImage: post.coverImage ? post.coverImage.url : null
+                                };
+                            });
                         } else {
-                            throw new Error("No posts found");
+                            throw new Error("No posts found in the publication");
                         }
                     } catch (error) {
+                        console.error("Hashnode Fetch Error:", error);
+                        // Fallback posts if internet fails or no posts exist
                         blogPosts.value = [
                             { title: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?', brief: 'In this article, I break down how Laravel built-in security features make it perfect for handling sensitive government data...', url: '#', coverImage: null },
                             { title: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation', brief: 'You dont need a massive budget to automate. Learn how simple scripts can save your retail business hours...', url: '#', coverImage: null },
@@ -725,7 +737,6 @@
                         isBlogLoading.value = false;
                     }
                 };
-
                 const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
