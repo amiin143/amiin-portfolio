@@ -76,6 +76,10 @@
         
         a:hover ~ .cursor-outline, button:hover ~ .cursor-outline { width: 60px; height: 60px; border-color: #38bdf8; background-color: rgba(56, 189, 248, 0.1); }
         @media (max-width: 768px) { body { cursor: auto; } .cursor-dot, .cursor-outline { display: none; } }
+
+        /* Fix for mobile menu delay */
+        .mobile-menu-enter-active, .mobile-menu-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
+        .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
     </style>
 </head>
 
@@ -88,13 +92,13 @@
 
         <div v-if="showPreloader" class="fixed inset-0 z-[10000] bg-secondary flex items-center justify-center transition-opacity duration-700" :class="{ 'opacity-0': isFadingOut }">
             <h1 class="text-4xl md:text-5xl text-accent font-mono overflow-hidden whitespace-nowrap border-r-4 border-accent animate-typing inline-block">
-                &lt;AmiinTech /&gt;
+                <AmiinTech />
             </h1>
         </div>
 
         <a href="#contact" class="fixed bottom-8 right-8 z-50 bg-primary text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 hover:scale-110 transition-all duration-300 flex items-center justify-center group">
             <i class="fas fa-paper-plane text-xl group-hover:animate-bounce"></i>
-            <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out font-bold ml-0 group-hover:ml-2">Let's Talk</span>
+            <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out font-bold ml-0 group-hover:ml-2">{{ i18n[currentLang].letsTalk }}</span>
         </a>
 
         <nav class="fixed w-full z-40 transition-all duration-300" :class="{ 'glass shadow-sm': isScrolled, 'bg-transparent': !isScrolled }">
@@ -129,20 +133,24 @@
                 </div>
             </div>
 
-            <div v-show="isMobileMenuOpen" class="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-darkcard shadow-2xl flex flex-col p-6 space-y-4 border-t border-gray-100 dark:border-gray-800 transition-all">
-                <a @click="isMobileMenuOpen = false" href="#home" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].home }}</a>
-                <a @click="isMobileMenuOpen = false" href="#about" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].about }}</a>
-                <a @click="isMobileMenuOpen = false" href="#process" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].process }}</a>
-                <a @click="isMobileMenuOpen = false" href="#portfolio" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].projects }}</a>
-                <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <button @click="toggleLanguage" class="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 font-bold text-primary dark:text-accent">
-                        {{ currentLang === 'en' ? 'Switch to Somali' : 'Switch to English' }}
-                    </button>
-                    <button @click="toggleDarkMode" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-yellow-500">
-                        <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
-                    </button>
+            <transition name="mobile-menu">
+                <div v-show="isMobileMenuOpen" class="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-darkcard shadow-2xl flex flex-col p-6 space-y-4 border-t border-gray-100 dark:border-gray-800">
+                    <a @click="isMobileMenuOpen = false" href="#home" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].home }}</a>
+                    <a @click="isMobileMenuOpen = false" href="#about" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].about }}</a>
+                    <a @click="isMobileMenuOpen = false" href="#process" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].process }}</a>
+                    <a @click="isMobileMenuOpen = false" href="#portfolio" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].projects }}</a>
+                    <a @click="isMobileMenuOpen = false" href="assets/Amiin_Mohamed_Mowlid_CV.pdf" download class="text-lg font-bold text-primary dark:text-accent">{{ i18n[currentLang].cv }}</a>
+                    
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <button @click="toggleLanguage" class="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 font-bold text-primary dark:text-accent flex-1">
+                            {{ currentLang === 'en' ? 'Switch to Somali' : 'Switch to English' }}
+                        </button>
+                        <button @click="toggleDarkMode" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 text-yellow-500 flex items-center justify-center text-xl">
+                            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </transition>
         </nav>
 
         <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-b from-blue-50 to-white dark:from-darkbg dark:to-darkbg">
@@ -153,24 +161,23 @@
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
                         </span>
-                        Master's Student & Lead Developer
+                        {{ i18n[currentLang].heroBadge }}
                     </div>
                     <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6 text-secondary dark:text-white tracking-tight">
-                        Building systems that <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">matter.</span>
+                        <span v-html="i18n[currentLang].heroTitle"></span>
                     </h1>
                     <p class="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        I am Amiin, a Full-Stack Web Developer and Project Planner based in Hargeisa. I design data-driven applications and lead digital transformations for local governments and institutions.
+                        {{ i18n[currentLang].heroDesc }}
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 transition-all">View Projects</a>
-                        <a href="#contact" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">Let's Talk</a>
+                        <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 transition-all">{{ i18n[currentLang].viewWork }}</a>
+                        <a href="#contact" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">{{ i18n[currentLang].letsTalk }}</a>
                     </div>
                 </div>
                 
                 <div class="lg:w-1/2 relative" data-aos="fade-left">
                     <div class="absolute top-0 right-0 w-72 h-72 bg-blue-200 dark:bg-blue-900/40 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob"></div>
                     <div class="absolute top-0 -left-4 w-72 h-72 bg-cyan-200 dark:bg-cyan-900/40 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-2000"></div>
-                    
                     <div class="relative w-80 h-80 lg:w-[28rem] lg:h-[28rem] mx-auto rounded-[2rem] shadow-2xl overflow-hidden border-8 border-white dark:border-gray-800 bg-white">
                         <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin Mohamed" class="w-full h-full object-cover">
                     </div>
@@ -180,53 +187,82 @@
 
         <section id="about" class="py-20 bg-white dark:bg-darkcard">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="flex flex-col lg:flex-row gap-16 items-start">
                     <div class="lg:w-5/12" data-aos="fade-up">
-                        <div class="relative rounded-3xl overflow-hidden shadow-xl">
-                            <img src="assets/images/main-about.JPEG" alt="About Amiin" class="w-full object-cover h-96">
+                        <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8">
+                            <img src="assets/images/main-about.JPEG" alt="About Amiin" class="w-full object-cover h-96 md:h-auto lg:h-[500px]">
                             <div class="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent flex flex-col justify-end p-8">
-                                <h3 class="text-white text-2xl font-bold">Amiin Mohamed Mowlid</h3>
-                                <p class="text-gray-300 font-medium">Hargeisa, Somaliland</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:w-7/12" data-aos="fade-up" data-aos-delay="100">
-                        <h2 class="text-4xl font-bold text-secondary dark:text-white mb-6">Bridging Code and Strategy.</h2>
-                        
-                        <div class="mb-6 p-4 border-l-4 border-primary bg-blue-50 dark:bg-blue-900/20 rounded-r-xl">
-                            <p class="text-lg text-gray-800 dark:text-gray-200 font-medium">
-                                🎓 <strong class="text-primary">BSc in Computer Science (CGPA: 4.89/5.00)</strong> <br>
-                                📈 Currently pursuing a <strong class="text-primary">Master's in Project Planning & Management (MPPM)</strong>.
-                            </p>
-                        </div>
-
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                            I don't just write code—I architect scalable solutions. My unique background includes 5 years in education and extensive research into socio-economic data analysis. This allows me to approach technical problems with a deep understanding of human needs.
-                        </p>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                            Clients trust me because I combine rigorous academic project management frameworks with cutting-edge web development skills.
-                        </p>
-
-                        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-                            <h4 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-4">Professional Certifications</h4>
-                            <div class="flex items-center gap-4">
-                                <img src="assets/images/googleCertificate.JPEG" alt="Google" class="w-10 h-10 bg-white rounded-full p-1">
-                                <div>
-                                    <h5 class="font-bold text-secondary dark:text-white text-lg">Google Project Management Professional</h5>
-                                    <p class="text-gray-500 dark:text-gray-400 text-sm">Issued by Google via Coursera • Mastery in Agile, Scrum & Risk Management</p>
-                                </div>
+                                <h3 class="text-white text-3xl font-bold">Amiin Mohamed Mowlid</h3>
+                                <p class="text-primary font-medium text-lg">Hargeisa, Somaliland</p>
                             </div>
                         </div>
 
-                        <div class="mt-8 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-md">
+                        <div class="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-md">
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
-                                <span class="text-sm font-bold text-gray-600 dark:text-gray-300"><i class="fas fa-video text-red-500 mr-2"></i> Quick Video Introduction</span>
+                                <span class="text-sm font-bold text-gray-600 dark:text-gray-300"><i class="fas fa-video text-red-500 mr-2"></i> {{ i18n[currentLang].videoIntro }}</span>
                             </div>
                             <div class="aspect-video bg-gray-200 dark:bg-gray-900 relative flex items-center justify-center group">
                                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" title="AmiinTech Intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full absolute inset-0 z-10 opacity-0 hover:opacity-100 transition-opacity duration-300"></iframe>
                                 <div class="text-center z-0">
                                     <i class="fas fa-play-circle text-5xl text-primary mb-2 opacity-70 group-hover:scale-110 transition-transform"></i>
-                                    <p class="text-gray-500 dark:text-gray-400 font-medium text-sm">Hover to play intro</p>
+                                    <p class="text-gray-500 dark:text-gray-400 font-medium text-sm">Hover to play</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-7/12" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="text-4xl font-bold text-secondary dark:text-white mb-6">{{ i18n[currentLang].aboutTitle }}</h2>
+                        
+                        <div class="mb-6 p-5 border-l-4 border-primary bg-blue-50 dark:bg-blue-900/20 rounded-r-xl">
+                            <p class="text-lg text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+                                <span v-html="i18n[currentLang].academicHighlight"></span>
+                            </p>
+                        </div>
+
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">{{ i18n[currentLang].aboutP1 }}</p>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">{{ i18n[currentLang].aboutP2 }}</p>
+
+                        <h4 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-4">{{ i18n[currentLang].certifications }}</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow group">
+                                <div class="h-32 overflow-hidden bg-white">
+                                    <img src="assets/images/googleCertificate.JPEG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                </div>
+                                <div class="p-4 border-t border-gray-100 dark:border-gray-700">
+                                    <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fab fa-google text-blue-500 mr-1"></i> Google Project Mgmt</h5>
+                                    <p class="text-gray-500 dark:text-gray-400 text-xs">Professional Certificate (Coursera)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="h-32 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white">
+                                    <i class="fas fa-brain text-5xl opacity-80"></i>
+                                </div>
+                                <div class="p-4 border-t border-gray-100 dark:border-gray-700">
+                                    <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-robot text-purple-500 mr-1"></i> AI & Automation</h5>
+                                    <p class="text-gray-500 dark:text-gray-400 text-xs">Applied Artificial Intelligence</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white">
+                                    <i class="fas fa-fingerprint text-5xl opacity-80"></i>
+                                </div>
+                                <div class="p-4 border-t border-gray-100 dark:border-gray-700">
+                                    <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-video text-slate-400 mr-1"></i> Security Systems</h5>
+                                    <p class="text-gray-500 dark:text-gray-400 text-xs">CCTV & Fingerprint Integration</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow group">
+                                <div class="h-32 bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-white">
+                                    <i class="fas fa-code text-5xl opacity-80"></i>
+                                </div>
+                                <div class="p-4 border-t border-gray-100 dark:border-gray-700">
+                                    <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-laptop-code text-cyan-500 mr-1"></i> Full-Stack Dev</h5>
+                                    <p class="text-gray-500 dark:text-gray-400 text-xs">Advanced Web Architecture</p>
                                 </div>
                             </div>
                         </div>
@@ -239,8 +275,8 @@
         <section id="process" class="py-20 bg-gray-50 dark:bg-darkbg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">How I Work</h2>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg">My project management background means I deliver on time, within budget, and exactly to your specifications.</p>
+                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">{{ i18n[currentLang].howIWorkTitle }}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">{{ i18n[currentLang].howIWorkDesc }}</p>
                 </div>
 
                 <div class="grid md:grid-cols-4 gap-8 relative">
@@ -248,31 +284,31 @@
 
                     <div class="relative z-10 text-center" data-aos="fade-up" data-aos-delay="0">
                         <div class="w-24 h-24 mx-auto bg-white dark:bg-darkcard border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-xl">
-                            <i class="fas fa-comments text-3xl text-primary"></i>
+                            <i class="fas fa-search text-3xl text-primary"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">1. Discovery</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Waan ku dhagaystaa si aan si buuxda u fahmo dhibaatadaada iyo yoolkaaga.</p>
+                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">{{ i18n[currentLang].step1 }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ i18n[currentLang].step1Desc }}</p>
                     </div>
                     <div class="relative z-10 text-center" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-24 h-24 mx-auto bg-white dark:bg-darkcard border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-xl">
                             <i class="fas fa-project-diagram text-3xl text-primary"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">2. Architecture</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Waxaan dejiyaa qorshe cad iyo nidaamka keydka xogta (Database Design).</p>
+                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">{{ i18n[currentLang].step2 }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ i18n[currentLang].step2Desc }}</p>
                     </div>
                     <div class="relative z-10 text-center" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-24 h-24 mx-auto bg-white dark:bg-darkcard border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-xl">
                             <i class="fas fa-code text-3xl text-primary"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">3. Development</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Waxaan ku dhisaa teknoolojiyad casri ah sida Laravel, Vue.js, iyo Tailwind.</p>
+                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">{{ i18n[currentLang].step3 }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ i18n[currentLang].step3Desc }}</p>
                     </div>
                     <div class="relative z-10 text-center" data-aos="fade-up" data-aos-delay="300">
                         <div class="w-24 h-24 mx-auto bg-white dark:bg-darkcard border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-xl">
                             <i class="fas fa-rocket text-3xl text-primary"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">4. Deployment</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Waan geynayaa server-ka, waana ku tababarayaa sidii aad u isticmaali lahayd.</p>
+                        <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">{{ i18n[currentLang].step4 }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ i18n[currentLang].step4Desc }}</p>
                     </div>
                 </div>
             </div>
@@ -281,8 +317,8 @@
         <section id="skills" class="py-20 bg-secondary text-white relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <div class="mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold mb-4">Technical Arsenal & Activity</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">Consistent development is key. Here are my tools and my daily coding activity.</p>
+                    <h2 class="text-4xl font-bold mb-4">{{ i18n[currentLang].techArsenal }}</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">{{ i18n[currentLang].techDesc }}</p>
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-16">
@@ -293,7 +329,7 @@
                 </div>
 
                 <div class="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-md inline-block max-w-full overflow-x-auto" data-aos="fade-up">
-                    <h4 class="text-lg font-bold mb-4 text-left"><i class="fab fa-github mr-2"></i> My GitHub Contributions</h4>
+                    <h4 class="text-lg font-bold mb-4 text-left"><i class="fab fa-github mr-2"></i> {{ i18n[currentLang].githubTitle }}</h4>
                     <img src="https://ghchart.rshah.org/2563eb/amiin143" alt="Amiin's Github Chart" class="min-w-[600px] opacity-90 hover:opacity-100 transition-opacity">
                 </div>
             </div>
@@ -302,8 +338,8 @@
         <section id="portfolio" class="py-24 bg-gray-50 dark:bg-darkbg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">Featured Case Studies</h2>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg">Real-world problems, solved with data-driven results and modern tech.</p>
+                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">{{ i18n[currentLang].caseStudiesTitle }}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">{{ i18n[currentLang].caseStudiesDesc }}</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -319,7 +355,7 @@
                             </div>
                             
                             <h3 class="text-xl font-bold text-secondary dark:text-white mb-2">{{ project.title }}</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm line-clamp-3">{{ project.shortDesc }}</p>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm line-clamp-3">{{ project.shortDesc[currentLang] }}</p>
                             
                             <div class="flex flex-wrap gap-2 mb-6">
                                 <span v-for="tag in project.tags.slice(0,3)" class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-semibold rounded-md">{{ tag }}</span>
@@ -327,7 +363,7 @@
                             </div>
                             
                             <div class="mt-auto flex flex-wrap gap-2">
-                                <button @click="openModal(project)" class="flex-1 bg-secondary dark:bg-gray-700 text-white py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm">Read Case Study</button>
+                                <button @click="openModal(project)" class="flex-1 bg-secondary dark:bg-gray-700 text-white py-2 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm">{{ i18n[currentLang].readCaseStudy }}</button>
                                 <a v-if="project.demoLink" :href="project.demoLink" target="_blank" class="flex-none px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
@@ -338,7 +374,7 @@
             </div>
         </section>
 
-        <div v-if="selectedProject" class="fixed inset-0 z-50 flex items-center justify-center px-4">
+        <div v-if="selectedProject" class="fixed inset-0 z-[60] flex items-center justify-center px-4">
             <div class="absolute inset-0 bg-secondary/90 backdrop-blur-sm" @click="closeModal"></div>
             
             <div class="bg-white dark:bg-darkcard rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto relative z-10 shadow-2xl">
@@ -372,15 +408,15 @@
                         <div class="md:col-span-2 space-y-6">
                             <div>
                                 <h3 class="text-xl font-bold text-secondary dark:text-white mb-2 flex items-center gap-2"><i class="fas fa-exclamation-circle text-red-500"></i> The Problem</h3>
-                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ selectedProject.problem }}</p>
+                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ selectedProject.problem[currentLang] }}</p>
                             </div>
                             <div>
                                 <h3 class="text-xl font-bold text-secondary dark:text-white mb-2 flex items-center gap-2"><i class="fas fa-lightbulb text-yellow-500"></i> The Solution</h3>
-                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ selectedProject.solution }}</p>
+                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ selectedProject.solution[currentLang] }}</p>
                             </div>
                             <div class="bg-green-50 dark:bg-green-900/10 p-6 rounded-xl border border-green-100 dark:border-green-800/30">
                                 <h3 class="text-xl font-bold text-green-700 dark:text-green-400 mb-2 flex items-center gap-2"><i class="fas fa-chart-line"></i> Data-Driven Outcome</h3>
-                                <p class="text-gray-800 dark:text-gray-300 leading-relaxed font-medium text-lg">{{ selectedProject.outcome }}</p>
+                                <p class="text-gray-800 dark:text-gray-300 leading-relaxed font-medium text-lg">{{ selectedProject.outcome[currentLang] }}</p>
                             </div>
                         </div>
 
@@ -403,49 +439,11 @@
             </div>
         </div>
 
-        <section id="testimonials" class="py-20 bg-white dark:bg-darkcard">
+        <section id="blog" class="py-20 bg-white dark:bg-darkcard">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">What Clients Say</h2>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg">Caddaymo dhab ah oo ka yimid dadkii aan xalalka u dhisay.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="p-8 bg-gray-50 dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 relative" data-aos="fade-right">
-                        <i class="fas fa-quote-left text-4xl text-blue-200 dark:text-blue-900 absolute top-8 left-8"></i>
-                        <p class="text-gray-700 dark:text-gray-300 text-lg italic mb-6 relative z-10 pt-8">
-                            "Amiin’s Security Management System streamlined our operations at the district level. He didn't just write code; he understood our exact administrative bottlenecks and solved them."
-                        </p>
-                        <div class="flex items-center gap-4">
-                            <img src="https://ui-avatars.com/api/?name=Muna+Harir&background=random" class="w-12 h-12 rounded-full">
-                            <div>
-                                <h4 class="font-bold text-secondary dark:text-white">Muna Harir</h4>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">Head of IT - Hargeisa Local Government</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8 bg-gray-50 dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 relative" data-aos="fade-left">
-                        <i class="fas fa-quote-left text-4xl text-blue-200 dark:text-blue-900 absolute top-8 left-8"></i>
-                        <p class="text-gray-700 dark:text-gray-300 text-lg italic mb-6 relative z-10 pt-8">
-                            "Working with Amiin was a smart choice for our NGO. His background in both tech and project management means he delivers on time without needing constant supervision."
-                        </p>
-                        <div class="flex items-center gap-4">
-                            <img src="https://ui-avatars.com/api/?name=Maxamed+Ciise&background=random" class="w-12 h-12 rounded-full">
-                            <div>
-                                <h4 class="font-bold text-secondary dark:text-white">Maxamed Ciise</h4>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">Program Director - IFIYE Organization</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="blog" class="py-20 bg-gray-50 dark:bg-darkbg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">Thoughts & Insights</h2>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg">Wadaagida khibradda waa qeyb ka mid ah yoolkayga (Powered by Hashnode API).</p>
+                    <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">{{ i18n[currentLang].blogTitle }}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">{{ i18n[currentLang].blogDesc }}</p>
                 </div>
 
                 <div v-if="isBlogLoading" class="flex justify-center my-10">
@@ -453,39 +451,44 @@
                 </div>
 
                 <div v-else class="grid md:grid-cols-3 gap-8">
-                    <div v-for="(post, index) in blogPosts" :key="index" class="bg-white dark:bg-darkcard rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-800 flex flex-col" data-aos="fade-up" :data-aos-delay="index * 100">
-                        <div class="h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                            <img v-if="post.coverImage" :src="post.coverImage" alt="Cover" class="w-full h-full object-cover">
-                            <div v-else class="w-full h-full flex items-center justify-center text-gray-400"><i class="fas fa-newspaper text-4xl"></i></div>
+                    <div v-for="(post, index) in blogPosts" :key="index" class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700 flex flex-col group" data-aos="fade-up" :data-aos-delay="index * 100">
+                        <div class="h-48 overflow-hidden bg-gray-200 dark:bg-gray-900 relative">
+                            <img v-if="post.coverImage" :src="post.coverImage" alt="Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div v-else class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                                <i class="fas fa-newspaper text-5xl opacity-50"></i>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Hashnode</div>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-secondary dark:text-white mb-3 hover:text-primary transition-colors">{{ post.title }}</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">{{ post.brief }}</p>
-                            <a :href="post.url" target="_blank" class="mt-auto text-primary font-bold text-sm hover:underline">Read on Hashnode &rarr;</a>
+                            <h3 class="text-xl font-bold text-secondary dark:text-white mb-3 group-hover:text-primary transition-colors">{{ post.title }}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{{ post.brief }}</p>
+                            <a :href="post.url" target="_blank" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:underline">
+                                Read Article <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-24 bg-white dark:bg-darkcard">
+        <section id="contact" class="py-24 bg-gray-50 dark:bg-darkbg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-secondary rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
+                <div class="bg-white dark:bg-darkcard rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-gray-100 dark:border-gray-800">
                     <div class="md:w-5/12 p-12 lg:p-16 bg-gradient-to-br from-secondary to-gray-900 text-white relative overflow-hidden" data-aos="fade-right">
                         <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
-                        <h3 class="text-4xl font-bold mb-4">Let's Connect</h3>
-                        <p class="text-gray-400 mb-12 text-lg">Ready to transform your ideas into scalable digital realities? Drop me a message.</p>
+                        <h3 class="text-4xl font-bold mb-4">{{ i18n[currentLang].letsConnect }}</h3>
+                        <p class="text-gray-400 mb-12 text-lg">{{ i18n[currentLang].contactDesc }}</p>
                         
-                        <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-primary"><i class="fas fa-envelope text-xl"></i></div>
+                        <div class="space-y-6 z-10 relative">
+                            <div class="flex items-center gap-4 group">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"><i class="fas fa-envelope text-xl"></i></div>
                                 <div>
                                     <p class="text-sm text-gray-400 font-medium">Email Me</p>
                                     <a href="mailto:amiinmoh67@gmail.com" class="text-lg font-semibold hover:text-primary transition-colors">amiinmoh67@gmail.com</a>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-primary"><i class="fas fa-phone-alt text-xl"></i></div>
+                            <div class="flex items-center gap-4 group">
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"><i class="fas fa-phone-alt text-xl"></i></div>
                                 <div>
                                     <p class="text-sm text-gray-400 font-medium">Call Me</p>
                                     <a href="tel:+252633003884" class="text-lg font-semibold hover:text-primary transition-colors">+252 63 3003884</a>
@@ -494,26 +497,26 @@
                         </div>
                     </div>
 
-                    <div class="md:w-7/12 p-12 lg:p-16 bg-white dark:bg-gray-800" data-aos="fade-left">
+                    <div class="md:w-7/12 p-12 lg:p-16" data-aos="fade-left">
                         <form name="contact" method="POST" data-netlify="true" class="space-y-6">
                             <input type="hidden" name="form-name" value="contact">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">First Name</label>
-                                    <input type="text" name="first_name" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
+                                    <input type="text" name="first_name" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
-                                    <input type="text" name="last_name" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
+                                    <input type="text" name="last_name" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-                                <input type="email" name="email" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
+                                <input type="email" name="email" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Message</label>
-                                <textarea name="message" rows="4" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"></textarea>
+                                <textarea name="message" rows="4" required class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white"></textarea>
                             </div>
                             <button type="submit" class="w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 transition-all">
                                 Send Message <i class="fas fa-paper-plane ml-2"></i>
@@ -524,7 +527,7 @@
             </div>
         </section>
 
-        <section class="py-10 bg-gray-50 dark:bg-darkbg">
+        <section class="py-10 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
             <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
                 <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
                     <div class="bg-gray-800 px-4 py-2 flex items-center gap-2">
@@ -548,12 +551,44 @@
             </div>
         </section>
 
-        <footer class="bg-gray-900 border-t border-gray-800 text-white py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-6 md:mb-0">© 2026 AmiinTech. Built with Vue.js & Tailwind CSS.</p>
-                <div class="flex gap-6">
-                    <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-xl"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/amiin143" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-xl"><i class="fab fa-github"></i></a>
+        <footer class="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                    <div class="md:col-span-2">
+                        <a href="#" class="text-3xl font-extrabold tracking-tighter text-white block mb-6">Amiin<span class="text-primary">Tech.</span></a>
+                        <p class="text-gray-400 leading-relaxed max-w-sm">
+                            Bridging the gap between complex business challenges and smart, scalable digital solutions. Based in Hargeisa, Somaliland.
+                        </p>
+                        <div class="flex gap-4 mt-6">
+                            <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/amiin143" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-github"></i></a>
+                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                            <li><a href="#about" class="hover:text-primary transition-colors">About Me</a></li>
+                            <li><a href="#portfolio" class="hover:text-primary transition-colors">Case Studies</a></li>
+                            <li><a href="#blog" class="hover:text-primary transition-colors">Insights</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contact</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-primary"></i> Hargeisa, Somaliland</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-envelope text-primary"></i> amiinmoh67@gmail.com</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-phone text-primary"></i> +252 63 3003884</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                    <p>&copy; 2026 Amiin Mohamed Mowlid. All Rights Reserved.</p>
+                    <p class="mt-2 md:mt-0">Designed & Developed with <i class="fas fa-heart text-red-500 mx-1"></i></p>
                 </div>
             </div>
         </footer>
@@ -566,30 +601,72 @@
 
         createApp({
             setup() {
-                // UI States
                 const isScrolled = ref(false);
                 const isMobileMenuOpen = ref(false);
                 const selectedProject = ref(null);
                 const isDark = ref(false);
-                
-                // Preloader State
                 const showPreloader = ref(true);
                 const isFadingOut = ref(false);
 
-                // Blog / Hashnode State
+                // HASHNODE API Setup (using amiinmoh-qalib)
                 const blogPosts = ref([]);
                 const isBlogLoading = ref(true);
 
-                // Terminal State
                 const terminalInput = ref('');
                 const terminalHistory = ref([]);
                 const terminalInputRef = ref(null);
 
-                // Multi-Language
+                // FULL TRANSLATION DICTIONARY
                 const currentLang = ref('en');
                 const i18n = ref({
-                    en: { home: 'Home', about: 'About', process: 'Process', projects: 'Projects', cv: 'Download CV' },
-                    so: { home: 'Hoyga', about: 'Nagu Saabsan', process: 'Nidaamka', projects: 'Mashaariicda', cv: 'Soo Dejiso CV' }
+                    en: { 
+                        home: 'Home', about: 'About', process: 'Process', projects: 'Projects', cv: 'Download CV', letsTalk: 'Let\'s Talk',
+                        heroBadge: 'Master\'s Student & Lead Developer',
+                        heroTitle: 'Building systems that <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">matter.</span>',
+                        heroDesc: 'I am Amiin, a Full-Stack Web Developer and Project Planner based in Hargeisa. I design data-driven applications and lead digital transformations for local governments and institutions.',
+                        viewWork: 'View Projects',
+                        aboutTitle: 'Bridging Code and Strategy.',
+                        academicHighlight: '🎓 <strong class="text-primary">BSc in Computer Science (CGPA: 4.89/5.00)</strong> <br> 📈 Currently pursuing a <strong class="text-primary">Master\'s in Project Planning & Management (MPPM)</strong>.',
+                        aboutP1: 'I don\'t just write code—I architect scalable solutions. My unique background includes 5 years in education and extensive research into socio-economic data analysis. This allows me to approach technical problems with a deep understanding of human needs.',
+                        aboutP2: 'Clients trust me because I combine rigorous academic project management frameworks with cutting-edge web development skills.',
+                        certifications: 'Professional Certifications & Expertise',
+                        videoIntro: 'Quick Video Introduction',
+                        howIWorkTitle: 'How I Work', howIWorkDesc: 'My project management background means I deliver on time, within budget, and exactly to your specifications.',
+                        step1: '1. Discovery', step1Desc: 'I listen to fully understand your problem and your goals.',
+                        step2: '2. Architecture', step2Desc: 'I create a clear plan and robust database design.',
+                        step3: '3. Development', step3Desc: 'I build using modern tech like Laravel, Vue.js, and Tailwind.',
+                        step4: '4. Deployment', step4Desc: 'I deploy to the server and train you on how to use it.',
+                        techArsenal: 'Technical Arsenal & Activity', techDesc: 'Consistent development is key. Here are my tools and my daily coding activity.',
+                        githubTitle: 'My GitHub Contributions',
+                        caseStudiesTitle: 'Featured Case Studies', caseStudiesDesc: 'Real-world problems, solved with data-driven results and modern tech.',
+                        readCaseStudy: 'Read Case Study',
+                        blogTitle: 'Thoughts & Insights', blogDesc: 'Sharing knowledge and educating the community is part of my mission (Powered by Hashnode).',
+                        letsConnect: 'Let\'s Connect', contactDesc: 'Ready to transform your ideas into scalable digital realities? Drop me a message.'
+                    },
+                    so: { 
+                        home: 'Hoyga', about: 'Nagu Saabsan', process: 'Nidaamka', projects: 'Mashaariicda', cv: 'Soo Dejiso CV', letsTalk: 'ila Hadal',
+                        heroBadge: 'Arday Master ah & Hogaamiye Koodh',
+                        heroTitle: 'Dhisida nidaamyo xal u ah <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">dhibaatooyinka.</span>',
+                        heroDesc: 'Waxaan ahay Amiin, Full-Stack Web Developer iyo Project Planner degan Hargeysa. Waxaan naqshadeeyaa barnaamijyo casri ah, waxaanan hogaamiyaa isbedelka dhijitaalka ah ee dowladdaha hoose iyo hay\'adaha.',
+                        viewWork: 'Daawo Shaqooyinkayga',
+                        aboutTitle: 'Isku-xirka Koodhka & Qorshaha.',
+                        academicHighlight: '🎓 <strong class="text-primary">BSc in Computer Science (CGPA: 4.89/5.00)</strong> <br> 📈 Hadda wuxuu diyaarinayaa <strong class="text-primary">Master\'s in Project Planning & Management (MPPM)</strong>.',
+                        aboutP1: 'Keliya koodh ma qoro—waxaan naqshadeeyaa xalal waara. Sooyaalkayga gaarka ah waxaa ku jira 5 sano oo xagga waxbarashada ah iyo cilmi-baaris baaxad leh oo ku saabsan xogta dhaqaalaha. Tani waxay ii ogolaanaysaa inaan dhibaatooyinka farsamo ku wajaho faham qoto dheer oo ku saabsan baahida aadanaha.',
+                        aboutP2: 'Macaamiishu way i aaminaan waayo waxaan isku daraa nidaamyada maamulka mashaariicda tacliimeed iyo xirfadaha horumarinta webka ee ugu casrisan.',
+                        certifications: 'Shahaadooyinka Xirfadeed & Khibradda',
+                        videoIntro: 'Muuqaal Hordhac Ah',
+                        howIWorkTitle: 'Sida aan u Shaqeeyo', howIWorkDesc: 'Khibraddayda maamulka mashaariicda macnaheedu waa in aan shaqada ku keeno waqtigii loogu talagalay iyo miisaaniyaddii loo qoondeeyay.',
+                        step1: '1. Ogaansho', step1Desc: 'Waan ku dhagaystaa si aan si buuxda u fahmo dhibaatadaada iyo yoolkaaga.',
+                        step2: '2. Naqshadayn', step2Desc: 'Waxaan dejiyaa qorshe cad iyo nidaamka keydka xogta.',
+                        step3: '3. Horumarin', step3Desc: 'Waxaan ku dhisaa teknoolojiyad casri ah sida Laravel, Vue.js, iyo Tailwind.',
+                        step4: '4. Daah-fur', step4Desc: 'Waan geynayaa server-ka, waana ku tababarayaa sidii aad u isticmaali lahayd.',
+                        techArsenal: 'Awooda Farsamo & Dhaqdhaqaaqa', techDesc: 'Horumarin joogto ah ayaa muhiim ah. Kani waa qalabkayga iyo dhaqdhaqaaqayga maalinlaha ah.',
+                        githubTitle: 'Dhaqdhaqaaqayga GitHub',
+                        caseStudiesTitle: 'Mashaariicda Muhiimka Ah', caseStudiesDesc: 'Dhibaatooyin dhab ah oo lagu xalliyay xog iyo teknoolojiyad casri ah.',
+                        readCaseStudy: 'Akhri Faahfaahinta',
+                        blogTitle: 'Fikradaha & Qormooyinka', blogDesc: 'Wadaagida khibradda iyo in aan bulshada wax baro waa qeyb ka mid ah yoolkayga (Waxa kaxeeya Hashnode).',
+                        letsConnect: 'ila Soo Xiriir', contactDesc: 'Ma diyaar u tahay in aad fikradaada u beddesho xaqiiqo dhijitaal ah? Fariin iisoo reeb.'
+                    }
                 });
 
                 const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
@@ -599,13 +676,16 @@
                     if (isDark.value) document.documentElement.classList.add('dark');
                     else document.documentElement.classList.remove('dark');
                 };
-                const toggleLanguage = () => { currentLang.value = currentLang.value === 'en' ? 'so' : 'en'; };
+                const toggleLanguage = () => { 
+                    currentLang.value = currentLang.value === 'en' ? 'so' : 'en'; 
+                    isMobileMenuOpen.value = false; 
+                };
 
-                // Fetch Hashnode API
+                // FETCHING FROM YOUR EXACT HASHNODE USERNAME
                 const fetchHashnodePosts = async () => {
                     const query = `
                         query {
-                            user(username: "amiin-qalib") {
+                            user(username: "amiinmoh-qalib") {
                                 publication {
                                     posts(page: 0) {
                                         title
@@ -626,7 +706,6 @@
                         const data = await res.json();
                         
                         if (data.data && data.data.user && data.data.user.publication && data.data.user.publication.posts.length > 0) {
-                            // Map fetched data
                             blogPosts.value = data.data.user.publication.posts.slice(0,3).map(post => ({
                                 title: post.title,
                                 brief: post.brief,
@@ -637,7 +716,6 @@
                             throw new Error("No posts found");
                         }
                     } catch (error) {
-                        // Fallback data if API fails or no posts exist yet
                         blogPosts.value = [
                             { title: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?', brief: 'In this article, I break down how Laravel built-in security features make it perfect for handling sensitive government data...', url: '#', coverImage: null },
                             { title: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation', brief: 'You dont need a massive budget to automate. Learn how simple scripts can save your retail business hours...', url: '#', coverImage: null },
@@ -648,7 +726,6 @@
                     }
                 };
 
-                // Terminal Commands Logic
                 const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
@@ -669,14 +746,12 @@
                 };
 
                 onMounted(() => { 
-                    // Preloader Sequence
-                    setTimeout(() => { isFadingOut.value = true; }, 1500); // 1.5s typing
-                    setTimeout(() => { showPreloader.value = false; }, 2200); // Remove after fade out
+                    setTimeout(() => { isFadingOut.value = true; }, 1500); 
+                    setTimeout(() => { showPreloader.value = false; }, 2200); 
 
                     window.addEventListener('scroll', handleScroll); 
                     AOS.init({ duration: 800, once: true }); 
                     
-                    // Fetch Blog Posts
                     fetchHashnodePosts();
 
                     const cursorDot = document.getElementById("cursor-dot");
@@ -710,44 +785,71 @@
                     { name: 'GitHub', icon: 'devicon-github-original dark:text-white' }
                 ]);
 
-                // Projects with Added Architecture and PDF Download properties
+                // PROJECTS WITH TRANSLATIONS
                 const projects = ref([
                     {
                         id: 1,
                         title: 'Hidoraac System',
-                        shortDesc: 'A modern, full-stack e-commerce and rental platform dedicated to preserving and trading Somali cultural heritage items.',
+                        shortDesc: {
+                            en: 'A modern, full-stack e-commerce and rental platform dedicated to preserving and trading Somali cultural heritage items.',
+                            so: 'Madal casri ah oo loogu talagalay in lagu iibiyo lagana kireysto agabka hidaha iyo dhaqanka Soomaaliyeed.'
+                        },
                         isFlagship: true,
                         category: 'E-commerce',
                         image: 'assets/images/portfolio/Screenshot 2026-04-18 234457.png',
                         demoLink: 'http://hidoraac.great-site.net/',
-                        pdfLink: 'assets/documents/Hidoraac_Case_Study.pdf', // Example Path
+                        pdfLink: 'assets/documents/Hidoraac_Case_Study.pdf',
                         architecture: ['Customer/Vendor', 'Vue.js / Tailwind UI', 'Laravel API Server', 'MySQL Database'],
                         tags: ['PHP', 'MySQL', 'Bootstrap 5', 'Javascript', 'UI/UX'],
                         role: 'Lead Developer & System Architect',
-                        problem: 'There was a lack of a centralized, digital marketplace for Somali traditional items (Hidaha iyo Dhaqanka). Customers and vendors struggled with manual tracking of rentals and disorganized inventory.',
-                        solution: 'I engineered a comprehensive web application from scratch. The platform features a unique dual-action cart system allowing users to buy and rent items seamlessly, with automated mobile money tracking.',
-                        outcome: 'Digitized the cultural items market resulting in a 35% increase in vendor onboarding, zero inventory mismatches, and a fully automated payment tracking pipeline.'
+                        problem: {
+                            en: 'There was a lack of a centralized, digital marketplace for Somali traditional items. Customers and vendors struggled with manual tracking of rentals and disorganized inventory.',
+                            so: 'Ma jirin suuq dhexe oo dhijitaal ah oo loogu talagalay agabka hidaha. Macaamiisha iyo iibiyayaashu waxay ku dhibtoodayeen la socodka gacanta ee alaabta la kireeyo.'
+                        },
+                        solution: {
+                            en: 'I engineered a comprehensive web application from scratch. The platform features a unique dual-action cart system allowing users to buy and rent items seamlessly.',
+                            so: 'Waxaan dhisay nidaam dhammaystiran. Madalku waxa ay leedahay nidaam gaar ah oo kuu ogolaanaya in aad wax gadato ama kireysato isku mar, adiga oo isticmaalaya ZAAD/eDahab.'
+                        },
+                        outcome: {
+                            en: 'Digitized the cultural items market resulting in a 35% increase in vendor onboarding, zero inventory mismatches, and a fully automated payment tracking pipeline.',
+                            so: 'Waxay kordhisay iibiyayaasha 35%, waxay meesha ka saartay khaladaadka xogta, waxayna si toos ah ula socotaa lacag-bixinta.'
+                        }
                     },
                     {
                         id: 2,
                         title: '31ka May District Security System',
-                        shortDesc: 'A centralized local government platform built in 2025 for real-time security reporting and administrative control.',
+                        shortDesc: {
+                            en: 'A centralized local government platform built in 2025 for real-time security reporting and administrative control.',
+                            so: 'Madal dowladda hoose ee degmada 31ka May loo dhisay 2025 si loogu maamulo amniga iyo xogta degmada.'
+                        },
                         isFlagship: true,
                         category: 'Government Tech',
                         image: 'assets/images/portfolio/img-1.PNG',
                         demoLink: null,
-                        pdfLink: 'assets/documents/31ka_May_Case_Study.pdf', // Example Path
+                        pdfLink: 'assets/documents/31ka_May_Case_Study.pdf',
                         architecture: ['Gov Officials', 'Secure Web Portal', 'Laravel Controller', 'Encrypted MySQL'],
                         tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Blade'],
                         role: 'Project Planner & Full-Stack Developer',
-                        problem: 'The local government relied heavily on paper trails for security incidents, leading to severe delays in response times and lost data across departments.',
-                        solution: 'Utilizing Agile project management, I built a highly secure, role-based web portal for local officials to log, track, and resolve incidents in real-time.',
-                        outcome: 'The system reduced manual paperwork processing time by over 60%, currently processing 500+ incident reports monthly with complete data integrity.'
+                        problem: {
+                            en: 'The local government relied heavily on paper trails for security incidents, leading to severe delays in response times and lost data across departments.',
+                            so: 'Dowladda hoose waxay isticmaali jirtay warqado si ay u diiwaangeliso dhacdooyinka amniga, taas oo keentay in xogtu lunto oo shaqadu raagto.'
+                        },
+                        solution: {
+                            en: 'Utilizing Agile project management, I built a highly secure, role-based web portal for local officials to log, track, and resolve incidents in real-time.',
+                            so: 'Waxaan dhisay nidaam ammaan ah oo ay shaqaaluhu geli karaan, kaas oo si toos ah (live) ula soconaya dhacdooyinka iyo xallintooda.'
+                        },
+                        outcome: {
+                            en: 'The system reduced manual paperwork processing time by over 60%, currently processing 500+ incident reports monthly with complete data integrity.',
+                            so: 'Nidaamku wuxuu hoos u dhigay shaqada gacanta 60%, isagoo hadda bishiiba maamula in ka badan 500 oo warbixinood.'
+                        }
                     },
                     {
                         id: 3,
                         title: 'Smart Student Attendance Manager',
-                        shortDesc: 'A digital solution replacing manual attendance, improving accuracy and record-keeping for schools.',
+                        shortDesc: {
+                            en: 'A digital solution replacing manual attendance, improving accuracy and record-keeping for schools.',
+                            so: 'Nidaam dhijitaal ah oo beddelay xaadirinta ardayda ee gacanta, kaas oo wanaajiyay xog-haynta iskuulada.'
+                        },
                         isFlagship: false,
                         category: 'EdTech Web App',
                         image: 'assets/images/portfolio/img-student-3.png',
@@ -756,14 +858,26 @@
                         architecture: ['Teachers', 'Mobile-Friendly UI', 'PHP Backend', 'MySQL'],
                         tags: ['PHP', 'Bootstrap', 'JavaScript', 'MySQL'],
                         role: 'System Architect & Developer',
-                        problem: 'Schools relied on paper-based registers, making it time-consuming for teachers and nearly impossible to quickly generate reports on chronic absenteeism.',
-                        solution: 'Created a responsive web app allowing teachers to take attendance digitally within seconds, with a backend generating instant analytical reports.',
-                        outcome: 'Adopted by local institutions, resulting in a 40% reduction in administrative workload and significantly faster parent-notification turnarounds.'
+                        problem: {
+                            en: 'Schools relied on paper-based registers, making it time-consuming for teachers and nearly impossible to quickly generate reports on chronic absenteeism.',
+                            so: 'Iskuuladu waxay isticmaalayeen diiwaan warqad ah, taas oo macalimiinta waqti badan ka qaadanaysay, soona saaridda warbixinnada ka dhigtay mid adag.'
+                        },
+                        solution: {
+                            en: 'Created a responsive web app allowing teachers to take attendance digitally within seconds, with a backend generating instant analytical reports.',
+                            so: 'Waxaan abuuray nidaam u sahlaya macallimiinta in ay xaadirinta ku qaadaan ilbiriqsiyo gudahood, nidaamkuna wuxuu toos u soo saaraa warbixinno.'
+                        },
+                        outcome: {
+                            en: 'Adopted by local institutions, resulting in a 40% reduction in administrative workload and significantly faster parent-notification turnarounds.',
+                            so: 'Wuxuu yareeyay shaqadii maamulka 40%, wuxuuna dedejiyay la xiriirka waalidiinta.'
+                        }
                     },
                     {
                         id: 4,
                         title: 'Internships & Start-up Projects',
-                        shortDesc: 'A collection of real-world remote projects delivered during various internships and freelance contracts.',
+                        shortDesc: {
+                            en: 'A collection of real-world remote projects delivered during various internships and freelance contracts.',
+                            so: 'Qayb ka mid ah mashaariic aan u dhisay shirkado kala duwan anigoo ah freelancer iyo intern.'
+                        },
                         isFlagship: false,
                         category: 'Professional Experience',
                         image: 'assets/images/portfolio/img-intern-1.png',
@@ -772,14 +886,26 @@
                         architecture: null,
                         tags: ['React', 'Firebase', 'SEO', 'Git'],
                         role: 'Remote Collaborator',
-                        problem: 'Startups needed quick, reliable modern frontend interfaces to launch their products under tight deadlines.',
-                        solution: 'Collaborated remotely using Trello/Jira to build responsive landing pages, integrate APIs, and optimize SEO.',
-                        outcome: 'Helped 3+ startup clients successfully launch their MVPs on time, driving initial user engagement and establishing a strong digital footprint.'
+                        problem: {
+                            en: 'Startups needed quick, reliable modern frontend interfaces to launch their products under tight deadlines.',
+                            so: 'Shirkadaha yaryari waxay u baahnaayeen website-yo casri ah oo degdeg ah si ay u daah-furaan adeegyadooda waqtigii loogu talagalay.'
+                        },
+                        solution: {
+                            en: 'Collaborated remotely using Trello/Jira to build responsive landing pages, integrate APIs, and optimize SEO.',
+                            so: 'Waxaan kala shaqeeyay kooxo kala duwan dhisida website-yada, anigoo isticmaalaya Trello si aan shaqada u maamulo.'
+                        },
+                        outcome: {
+                            en: 'Helped 3+ startup clients successfully launch their MVPs on time, driving initial user engagement and establishing a strong digital footprint.',
+                            so: 'Waxaan ka caawiyay in ka badan 3 shirkadood in ay shaqadooda waqtigii loogu talagalay ku bilaabaan.'
+                        }
                     },
                     {
                         id: 5,
                         title: 'AmiinTech Modern Portfolio',
-                        shortDesc: 'A lightning-fast, data-driven portfolio with Dark Mode and Interactive UI designed to showcase my capabilities.',
+                        shortDesc: {
+                            en: 'A lightning-fast, data-driven portfolio with Dark Mode and Interactive UI designed to showcase my capabilities.',
+                            so: 'Website-kan casriga ah ee xawaaraha dheereeya oo aan u dhisay in aan ku soo bandhigo xirfadahayga.'
+                        },
                         isFlagship: false,
                         category: 'Personal Branding',
                         image: 'assets/images/portfolio/img-portfolio-1.png',
@@ -788,9 +914,18 @@
                         architecture: ['User Browser', 'Vue 3 Virtual DOM', 'Tailwind Utilities', 'Netlify Edge Deploy'],
                         tags: ['Vue 3', 'Tailwind CSS', 'AOS', 'Netlify'],
                         role: 'UI/UX Designer & Developer',
-                        problem: 'My previous portfolio relied on outdated plugins and lacked the modern aesthetic needed to attract high-tier clients.',
-                        solution: 'Engineered a completely new SPA using Vue.js for dynamic data binding and Tailwind CSS for a highly responsive, glassmorphism design with Dark Mode integration.',
-                        outcome: 'Achieved a 98/100 Lighthouse performance score and created a world-class user experience that effectively converts visitors into leads.'
+                        problem: {
+                            en: 'My previous portfolio relied on outdated plugins and lacked the modern aesthetic needed to attract high-tier clients.',
+                            so: 'Website-kaygii hore wuxuu ahaa mid duug ah oo aan lahayn bilic casri ah oo lagu soo jiito macaamiisha heerka sare ah.'
+                        },
+                        solution: {
+                            en: 'Engineered a completely new SPA using Vue.js for dynamic data binding and Tailwind CSS for a highly responsive, glassmorphism design with Dark Mode integration.',
+                            so: 'Waxaan dhisay nidaam gebi ahaanba cusub anigoo isticmaalaya Vue.js iyo Tailwind CSS si aan u helo naqshad casri ah oo leh Dark Mode.'
+                        },
+                        outcome: {
+                            en: 'Achieved a 98/100 Lighthouse performance score and created a world-class user experience that effectively converts visitors into leads.',
+                            so: 'Wuxuu gaaray darajada ugu sarraysa ee xawaaraha website-yada (98/100), wuxuuna keenay in macaamiishu si fudud iila soo xiriiraan.'
+                        }
                     }
                 ]);
 
