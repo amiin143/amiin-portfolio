@@ -174,7 +174,7 @@
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                         <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 transition-all">{{ i18n[currentLang].viewWork }}</a>
-                        <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/amiinmoh67'});return false;" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">{{ i18n[currentLang].letsTalk }}</button>
+                       <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/akaqalib/30min'});return false;" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">{{ i18n[currentLang].letsTalk }}</button>
                     </div>
                 </div>
                 
@@ -560,7 +560,7 @@
                             </div>
 
                             <div class="pt-8">
-                                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/amiinmoh67'});return false;" class="w-full py-4 border-2 border-white/20 hover:bg-white hover:text-secondary rounded-xl font-bold transition-colors flex items-center justify-center gap-2">
+                              <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/akaqalib/30min'});return false;" class="w-full py-4 border-2 border-white/20 hover:bg-white hover:text-secondary rounded-xl font-bold transition-colors flex items-center justify-center gap-2">
                                     <i class="far fa-calendar-alt text-xl"></i> {{ i18n[currentLang].bookConsultation }}
                                 </button>
                             </div>
@@ -607,9 +607,9 @@
                         <span class="text-gray-400 text-xs font-mono ml-4">amiin@tech-portfolio:~</span>
                     </div>
                     <div class="p-6 font-mono text-sm text-green-400 h-64 overflow-y-auto text-left" @click="focusTerminal">
-                        <div class="mb-4 text-gray-300">
+                       <div class="mb-4 text-gray-300">
                             Welcome to AmiinTech CLI. <br>
-                            Type <span class="text-yellow-400">help</span> to see available commands.
+                            Try typing <span class="text-yellow-400 cursor-pointer" @click="terminalInput = 'whoami'; runCommand()">whoami</span>, <span class="text-yellow-400 cursor-pointer" @click="terminalInput = 'amiin --interests'; runCommand()">amiin --interests</span>, or <span class="text-yellow-400">help</span> to explore.
                         </div>
                         <div v-for="(line, idx) in terminalHistory" :key="idx" class="mb-1" v-html="line"></div>
                         <div class="flex items-center mt-2">
@@ -832,17 +832,64 @@
                     }
                 ]);
 
-                const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
+              const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
+                
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
                     terminalHistory.value.push(`<span class="text-blue-400">amiin@guest:~$</span> ${cmd}`);
                     
                     if(cmd === 'help') {
-                        terminalHistory.value.push(`Available commands: <br> <span class="text-yellow-400">amiin --skills</span> : View my tech stack <br> <span class="text-yellow-400">amiin --contact</span> : Get my email <br> <span class="text-yellow-400">clear</span> : Clear terminal`);
+                        terminalHistory.value.push(`
+                            Available commands: <br> 
+                            <span class="text-yellow-400">whoami</span> : Discover my identity <br> 
+                            <span class="text-yellow-400">amiin --education</span> : View my academic background <br> 
+                            <span class="text-yellow-400">amiin --experience</span> : View my professional journey <br> 
+                            <span class="text-yellow-400">amiin --skills</span> : View my technical & PM stack <br> 
+                            <span class="text-yellow-400">amiin --interests</span> : Find out what I do offline <br> 
+                            <span class="text-yellow-400">amiin --contact</span> : Get my contact details <br> 
+                            <span class="text-yellow-400">clear</span> : Clear terminal screen
+                        `);
+                    } else if(cmd === 'whoami') {
+                        terminalHistory.value.push(`
+                            > Name: Amiin Mohamed Mowlid <br> 
+                            > Role: Lead Full-Stack Developer & Project Planner <br> 
+                            > Mission: Bridging the gap between complex business challenges and smart digital solutions.
+                        `);
+                    } else if(cmd === 'amiin --education') {
+                        terminalHistory.value.push(`
+                            > [Loading Academic Records...] <br> 
+                            > 🎓 BSc in Computer Science (Outstanding CGPA: 4.89/5.00) <br> 
+                            > 📈 Master's in Project Planning & Management (MPPM) <br> 
+                            > 📜 Certifications: Google Project Management Professional
+                        `);
+                    } else if(cmd === 'amiin --experience') {
+                        terminalHistory.value.push(`
+                            > [Loading Career Timeline...] <br> 
+                            > 💻 Current: Lead Web Developer (Building Gov Tech & E-commerce like the Hidoraac System) <br> 
+                            > 📚 Previous: Spent 5 rewarding years as a Primary School Teacher (Specializing in Social Subjects) <br> 
+                            > 📊 Research: Conducted comprehensive statistical analysis on socio-economic issues (e.g., Child Labor drivers).
+                        `);
                     } else if(cmd === 'amiin --skills') {
-                        terminalHistory.value.push(`[System Check] Loading skills... <br> > Frontend: Vue.js, React, Tailwind CSS, Flutter <br> > Backend: Laravel, PHP, Node.js, Django <br> > Database: MySQL, PostgreSQL <br> > Other: Project Management (MPPM), Git, Agile`);
+                        terminalHistory.value.push(`
+                            [System Check] Loading skills... <br> 
+                            > Frontend: Vue.js, React, Tailwind CSS, Flutter <br> 
+                            > Backend: Laravel, PHP, Node.js, Python, Django <br> 
+                            > Database: MySQL, PostgreSQL <br> 
+                            > Other: Project Management (Agile/Scrum), AI Business Integration, QuickBooks & Excel Automation
+                        `);
+                    } else if(cmd === 'amiin --interests') {
+                        terminalHistory.value.push(`
+                            > [Decoding Personal Life...] <br> 
+                            > 🤖 Researching AI tools to boost small business efficiency. <br> 
+                            > 🍿 Binge-watching survival and teen drama series (Huge fan of "The 100" and "Riverdale"!). <br> 
+                            > ☕ Hanging out with close friends (Shoutout to Amiin Yusuf) and spending quality time with my special someone. ❤️
+                        `);
                     } else if(cmd === 'amiin --contact') {
-                        terminalHistory.value.push(`> Initiating contact protocol... <br> > Email: <a href="mailto:amiinmoh67@gmail.com" class="text-white underline">amiinmoh67@gmail.com</a> <br> > Phone: +252 63 3003884`);
+                        terminalHistory.value.push(`
+                            > Initiating contact protocol... <br> 
+                            > Email: <a href="mailto:amiinmoh67@gmail.com" class="text-white underline">amiinmoh67@gmail.com</a> <br> 
+                            > WhatsApp: +252 63 3003884
+                        `);
                     } else if(cmd === 'clear') {
                         terminalHistory.value = [];
                     } else if(cmd !== '') {
