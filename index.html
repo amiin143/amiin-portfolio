@@ -239,7 +239,6 @@
                                 <div class="h-32 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white">
                                      <img src="assets/images/ai-certificate.JPG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
-                                </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-robot text-purple-500 mr-1"></i> AI & Automation</h5>
                                     <p class="text-gray-500 dark:text-gray-400 text-xs">Applied Artificial Intelligence</p>
@@ -249,7 +248,6 @@
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                                 <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white">
                                      <img src="assets/images/cctv-certificate.JPEG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
-                                </div>
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-video text-slate-400 mr-1"></i> Security Systems</h5>
@@ -458,14 +456,54 @@
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-bold text-secondary dark:text-white mb-3 group-hover:text-primary transition-colors leading-snug">{{ post.title[currentLang] }}</h3>
                             <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{{ post.brief[currentLang] }}</p>
-                            <a :href="post.url" target="_blank" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:text-secondary dark:hover:text-white transition-colors">
-                                Read Full Article <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                            
+                            <a v-if="post.isExternal" :href="post.externalUrl" target="_blank" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:text-blue-700 dark:hover:text-accent transition-colors">
+                                Read on {{ post.platform }} <i class="fas fa-external-link-alt ml-2 text-xs"></i>
                             </a>
+                            
+                            <button v-else @click="openBlogModal(post)" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:text-blue-700 dark:hover:text-accent transition-colors text-left">
+                                Read Full Article <i class="fas fa-book-open ml-2 text-xs"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <div v-if="selectedBlogPost" class="fixed inset-0 z-[70] flex items-center justify-center px-4">
+            <div class="absolute inset-0 bg-secondary/90 backdrop-blur-sm" @click="closeBlogModal"></div>
+            
+            <div class="bg-white dark:bg-darkcard rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative z-10 shadow-2xl animate-fade-in-up text-left">
+                <button @click="closeBlogModal" class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-red-500 hover:bg-red-50 shadow-md transition-all z-20">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <div class="relative h-64 md:h-80 bg-gray-200 dark:bg-gray-900">
+                    <img v-if="selectedBlogPost.coverImage" :src="selectedBlogPost.coverImage" class="w-full h-full object-cover">
+                    <div v-else class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                        <i class="fas fa-newspaper text-6xl opacity-30"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/40 to-transparent flex items-end p-8 md:p-12">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full mb-3">{{ selectedBlogPost.tag }}</span>
+                            <h2 class="text-3xl md:text-5xl font-bold text-white leading-tight">{{ selectedBlogPost.title[currentLang] }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-12 bg-white dark:bg-darkcard text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed font-sans">
+                    <div v-html="selectedBlogPost.content[currentLang]" class="prose dark:prose-invert max-w-none"></div>
+                    
+                    <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4">
+                        <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
+                        <div>
+                            <p class="font-bold text-secondary dark:text-white">Amiin Mohamed Mowlid</p>
+                            <p class="text-sm text-gray-500">Author & Full-Stack Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section id="contact" class="py-24 bg-gray-50 dark:bg-darkbg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -603,6 +641,10 @@
                 const isScrolled = ref(false);
                 const isMobileMenuOpen = ref(false);
                 const selectedProject = ref(null);
+                
+                // BLOG MODAL STATE
+                const selectedBlogPost = ref(null);
+                
                 const isDark = ref(false);
                 const showPreloader = ref(true);
                 const isFadingOut = ref(false);
@@ -675,45 +717,87 @@
                     isMobileMenuOpen.value = false; 
                 };
 
-                // XALKA STATIC BLOG-GA (Error-Free)
+                // BLOG MODAL FUNCTIONS
+                const openBlogModal = (post) => { 
+                    selectedBlogPost.value = post; 
+                    document.body.style.overflow = 'hidden'; 
+                };
+                const closeBlogModal = () => { 
+                    selectedBlogPost.value = null; 
+                    document.body.style.overflow = 'auto'; 
+                };
+
                 const blogPosts = ref([
+                    // 1. EXTERNAL LINK (LinkedIn)
                     {
                         tag: 'Artificial Intelligence',
-                        coverImage: 'assets/images/ai-post.jpg', // Insert your linked in post cover image here later
-                        url: 'https://www.linkedin.com/posts/amiin-qalib-2304b924b_artificial-intelligence-is-no-longer-for-activity-7432681121370456064-ztna', 
+                        coverImage: null, // Sawirka soo guuri markaad hayso
+                        isExternal: true, 
+                        externalUrl: 'https://www.linkedin.com/posts/amiin-qalib-2304b924b_artificial-intelligence-is-no-longer-for-activity-7432681121370456064-ztna?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdOzO8BOKTfqyXFSB2NlAuHeGxz7zNGbis', 
+                        platform: 'LinkedIn', 
                         title: {
                             en: 'Artificial Intelligence is No Longer Just for Tech Giants',
                             so: 'Sirdoonka Macmalka ah (AI) Ma Aha Keliya Shirkadaha Waaweyn'
                         },
                         brief: {
-                            en: 'In this LinkedIn post, I discuss how AI is transforming everyday business activities and why every professional needs to adapt to this digital shift.',
-                            so: 'Qoraalkan aan soo dhigay LinkedIn, waxaan kaga hadlay sida Sirdoonka Macmalka ah (AI) uu wax uga beddelayo ganacsiyada iyo sababta ay qasab u tahay in lala jaanqaado.'
+                            en: 'In this LinkedIn post, I discuss how AI is transforming everyday business activities and why every professional needs to adapt.',
+                            so: 'Qoraalkan aan soo dhigay LinkedIn, waxaan kaga hadlay sida Sirdoonka Macmalka ah (AI) uu wax uga beddelayo ganacsiyada.'
                         }
                     },
+                    // 2. INTERNAL MODAL (Website-ka lagama baxayo)
                     {
                         tag: 'Tech Trends',
-                        coverImage:'assets/images/larvel-government-post.png', 
-                        url: 'https://amiinmoh-qalib.hashnode.dev/', 
+                        coverImage: null, 
+                        isExternal: false, 
                         title: {
                             en: 'Why Laravel is the Top Choice for Government Systems?',
                             so: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?'
                         },
                         brief: {
-                            en: 'In this article, I break down how Laravel\'s built-in security features and MVC architecture make it perfect for handling sensitive data.',
-                            so: 'Maqaalkan, waxaan ku sharraxayaa sida nidaamka ammaanka ee Laravel uu ugu habboon yahay in loo adeegsado xogta xasaasiga ah ee dowladda.'
+                            en: 'I break down how Laravel\'s built-in security features and MVC architecture make it perfect for handling sensitive data.',
+                            so: 'Maqaalkan, waxaan ku sharraxayaa sida nidaamka ammaanka ee Laravel uu ugu habboon yahay xogta xasaasiga ah ee dowladda.'
+                        },
+                        content: {
+                            en: `
+                                <p class="mb-4">When building systems for local governments, such as the 31ka May District Security System, the primary concern is always data integrity and security.</p>
+                                <p class="mb-4">Laravel provides built-in protection against SQL injection, cross-site request forgery, and cross-site scripting out of the box.</p>
+                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">The MVC Advantage</h4>
+                                <p>The Model-View-Controller architecture ensures that the business logic is strictly separated from the presentation layer, allowing for cleaner code and easier maintenance when district requirements scale.</p>
+                            `,
+                            so: `
+                                <p class="mb-4">Marka la dhisayo nidaamyada dowladaha hoose, sida Nidaamka Amniga ee Degmada 31ka May, walaaca ugu weyni waa badbaadada iyo ilaalinta xogta.</p>
+                                <p class="mb-4">Laravel wuxuu si toos ah u bixiyaa ilaalin ka dhan ah weerarada internet-ka sida SQL injection iyo XSS.</p>
+                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Faa'iidada MVC</h4>
+                                <p>Qaab dhismeedka Model-View-Controller wuxuu hubinayaa in xeerarka shaqada laga sooco qaybta muuqaalka, taas oo oggolaanaysa koodh nadiif ah oo si fudud loo horumarin karo mustaqbalka.</p>
+                            `
                         }
                     },
+                    // 3. INTERNAL MODAL (Website-ka lagama baxayo)
                     {
                         tag: 'Automation',
-                        coverImage:'assets/images/small-business-post.png',
-                        url: 'https://amiinmoh-qalib.hashnode.dev/',
+                        coverImage: null,
+                        isExternal: false,
                         title: {
                             en: 'How Small Businesses Can Leverage Automation',
                             so: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation'
                         },
                         brief: {
-                            en: 'You don\'t need a massive budget to automate. Learn how simple scripts and smart workflows can save your business hours of manual work.',
-                            so: 'Uma baahnid miisaaniyad weyn si aad shaqada u fududayso. Baro sida nidaamyo yaryar ay ganacsigaaga uga badbaadin karaan saacado badan oo shaqo gacan ah.'
+                            en: 'You don\'t need a massive budget to automate. Learn how simple scripts can save your business hours of manual work.',
+                            so: 'Uma baahnid miisaaniyad weyn si aad shaqada u fududayso. Baro sida nidaamyo yaryar ay kuugu badbaadin karaan saacado badan.'
+                        },
+                        content: {
+                            en: `
+                                <p class="mb-4">Automation is often viewed as an expensive tool only available to large enterprises. This is a misconception.</p>
+                                <p class="mb-4">Small businesses in Somaliland can leverage simple Python scripts, automated Google Sheets, and basic APIs to eliminate repetitive tasks like manual inventory counting or sending bulk SMS invoices.</p>
+                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Where to Start</h4>
+                                <p>Start by identifying the task you hate doing the most. If it requires copying and pasting data from one place to another, it can likely be automated.</p>
+                            `,
+                            so: `
+                                <p class="mb-4">Inta badan, nidaamka is-wada (Automation) waxaa loo arkaa qalab qaali ah oo ay heli karaan shirkadaha waaweyn oo keliya. Tani waa faham khaldan.</p>
+                                <p class="mb-4">Ganacsiyada yaryar ee Soomaaliland waxay isticmaali karaan nidaamyo fudud si ay meesha uga saaraan shaqooyinka soo noqnoqda sida tirinta alaabta (Inventory) ama dirista fariimaha SMS-ka.</p>
+                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Halkee Laga Bilaabaa?</h4>
+                                <p>Ku bilow inaad ogaato shaqada aad ugu neceb tahay inaad qabato. Haddii ay u baahan tahay in xog meel laga soo koobiyeeeyo oo meel kale la geliyo, hubaal waa la otomaatig garayn karaa.</p>
+                            `
                         }
                     }
                 ]);
@@ -726,7 +810,8 @@
                     if(cmd === 'help') {
                         terminalHistory.value.push(`Available commands: <br> <span class="text-yellow-400">amiin --skills</span> : View my tech stack <br> <span class="text-yellow-400">amiin --contact</span> : Get my email <br> <span class="text-yellow-400">clear</span> : Clear terminal`);
                     } else if(cmd === 'amiin --skills') {
-                        terminalHistory.value.push(`[System Check] Loading skills... <br> > Frontend: Vue.js, React, Tailwind CSS <br> > Backend: Laravel, PHP, Node.js <br> > Database: MySQL <br> > Other: Project Management (MPPM), Git, Agile`);
+                        // UPDATED SKILLS HERE
+                        terminalHistory.value.push(`[System Check] Loading skills... <br> > Frontend: Vue.js, React, Tailwind CSS, Flutter <br> > Backend: Laravel, PHP, Node.js, Django <br> > Database: MySQL, PostgreSQL <br> > Other: Project Management (MPPM), Git, Agile`);
                     } else if(cmd === 'amiin --contact') {
                         terminalHistory.value.push(`> Initiating contact protocol... <br> > Email: <a href="mailto:amiinmoh67@gmail.com" class="text-white underline">amiinmoh67@gmail.com</a> <br> > Phone: +252 63 3003884`);
                     } else if(cmd === 'clear') {
@@ -760,17 +845,20 @@
                 const openModal = (project) => { selectedProject.value = project; document.body.style.overflow = 'hidden'; };
                 const closeModal = () => { selectedProject.value = null; document.body.style.overflow = 'auto'; };
 
+                // ADDED POSTGRESQL, FLUTTER, DJANGO
                 const techStack = ref([
                     { name: 'Vue.js', icon: 'devicon-vuejs-plain colored' },
                     { name: 'React.js', icon: 'devicon-react-original colored' },
+                    { name: 'Flutter', icon: 'devicon-flutter-plain colored' }, // NEW
                     { name: 'Node.js', icon: 'devicon-nodejs-plain colored' },
                     { name: 'Python', icon: 'devicon-python-plain colored' },
+                    { name: 'Django', icon: 'devicon-django-plain colored' }, // NEW
                     { name: 'PHP', icon: 'devicon-php-plain colored' },
                     { name: 'Laravel', icon: 'devicon-laravel-plain colored' },
                     { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
                     { name: 'Tailwind CSS', icon: 'devicon-tailwindcss-plain colored' },
-                    { name: 'Bootstrap', icon: 'devicon-bootstrap-plain colored' },
                     { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
+                    { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored' }, // NEW
                     { name: 'Figma', icon: 'devicon-figma-plain colored' },
                     { name: 'GitHub', icon: 'devicon-github-original dark:text-white' }
                 ]);
@@ -923,7 +1011,7 @@
                     selectedProject, isDark, showPreloader, isFadingOut,
                     currentLang, i18n, toggleDarkMode, toggleLanguage,
                     openModal, closeModal, techStack, projects,
-                    blogPosts,
+                    blogPosts, selectedBlogPost, openBlogModal, closeBlogModal, // ADDED BLOG MODAL VARIABLES
                     terminalInput, terminalHistory, terminalInputRef, runCommand, focusTerminal
                 };
             }
