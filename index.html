@@ -184,9 +184,10 @@
             </div>
         </section>
 
-        <section id="about" class="py-20 bg-white dark:bg-darkcard">
+      <section id="about" class="py-20 bg-white dark:bg-darkcard">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col lg:flex-row gap-16 items-start">
+                    
                     <div class="lg:w-5/12 w-full" data-aos="fade-up">
                         <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8 mx-auto max-w-sm md:max-w-none">
                             <img src="assets/images/main-about.JPEG" alt="About Amiin" class="w-full object-cover h-80 md:h-auto lg:h-[500px]">
@@ -197,7 +198,6 @@
                         </div>
 
                         <div class="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-md mx-auto max-w-sm md:max-w-none">
-                           <div class="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-md mx-auto max-w-sm md:max-w-none">
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
                                 <span class="text-sm font-bold text-gray-600 dark:text-gray-300"><i class="fas fa-video text-red-500 mr-2"></i> {{ i18n[currentLang].videoIntro }}</span>
                             </div>
@@ -212,7 +212,7 @@
                         </div>
                     </div>
 
-                    <div class="lg:w-7/12 text-center md:text-left" data-aos="fade-up" data-aos-delay="100">
+                    <div class="lg:w-7/12 text-center md:text-left w-full" data-aos="fade-up" data-aos-delay="100">
                         <h2 class="text-4xl font-bold text-secondary dark:text-white mb-6">{{ i18n[currentLang].aboutTitle }}</h2>
                         
                         <div class="mb-6 p-5 border-l-4 border-primary bg-blue-50 dark:bg-blue-900/20 rounded-r-xl text-left">
@@ -221,8 +221,8 @@
                             </p>
                         </div>
 
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">{{ i18n[currentLang].aboutP1 }}</p>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">{{ i18n[currentLang].aboutP2 }}</p>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-left">{{ i18n[currentLang].aboutP1 }}</p>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed text-left">{{ i18n[currentLang].aboutP2 }}</p>
 
                         <h4 class="text-sm font-bold tracking-widest text-gray-400 uppercase mb-4 text-left">{{ i18n[currentLang].certifications }}</h4>
                         
@@ -238,8 +238,8 @@
                             </div>
                             
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="h-32 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white">
-                                     <img src="assets/images/ai-certificate.JPG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                <div class="h-32 overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600">
+                                     <img src="assets/images/ai-certificate.JPG" alt="AI Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-robot text-purple-500 mr-1"></i> AI & Automation</h5>
@@ -248,8 +248,8 @@
                             </div>
 
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white">
-                                     <img src="assets/images/cctv-certificate.JPEG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                <div class="h-32 overflow-hidden bg-gradient-to-br from-slate-700 to-slate-900">
+                                     <img src="assets/images/cctv-certificate.JPEG" alt="CCTV Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-video text-slate-400 mr-1"></i> Security Systems</h5>
@@ -267,6 +267,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
