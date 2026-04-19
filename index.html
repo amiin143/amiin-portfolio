@@ -438,7 +438,7 @@
             </div>
         </div>
 
-       <section id="blog" class="py-20 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
+        <section id="blog" class="py-20 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
                     <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">{{ i18n[currentLang].blogTitle }}</h2>
@@ -466,31 +466,7 @@
             </div>
         </section>
 
-        <section class="py-10 bg-gray-50 dark:bg-darkbg border-t border-gray-100 dark:border-gray-800">
-            <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
-                <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 px-4 py-2 flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-gray-400 text-xs font-mono ml-4">amiin@tech-portfolio:~</span>
-                    </div>
-                    <div class="p-6 font-mono text-sm text-green-400 h-64 overflow-y-auto" @click="focusTerminal">
-                        <div class="mb-4 text-gray-300">
-                            Welcome to AmiinTech CLI. <br>
-                            Type <span class="text-yellow-400">help</span> to see available commands.
-                        </div>
-                        <div v-for="(line, idx) in terminalHistory" :key="idx" class="mb-1" v-html="line"></div>
-                        <div class="flex items-center mt-2">
-                            <span class="text-blue-400 mr-2">amiin@guest:~$</span>
-                            <input ref="terminalInputRef" v-model="terminalInput" @keyup.enter="runCommand" type="text" class="bg-transparent outline-none flex-1 text-white" spellcheck="false" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-24 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
+        <section id="contact" class="py-24 bg-gray-50 dark:bg-darkbg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-darkcard rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-gray-100 dark:border-gray-800">
                     <div class="md:w-5/12 p-12 lg:p-16 bg-gradient-to-br from-secondary to-gray-900 text-white relative overflow-hidden" data-aos="fade-right">
@@ -506,11 +482,14 @@
                                     <a href="mailto:amiinmoh67@gmail.com" class="text-lg font-semibold hover:text-primary transition-colors">amiinmoh67@gmail.com</a>
                                 </div>
                             </div>
+                            
                             <div class="flex items-center gap-4 group">
-                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"><i class="fas fa-phone-alt text-xl"></i></div>
+                                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all">
+                                    <i class="fab fa-whatsapp text-2xl"></i>
+                                </div>
                                 <div>
-                                    <p class="text-sm text-gray-400 font-medium">Call Me</p>
-                                    <a href="tel:+252633003884" class="text-lg font-semibold hover:text-primary transition-colors">+252 63 3003884</a>
+                                    <p class="text-sm text-gray-400 font-medium">WhatsApp Me</p>
+                                    <a href="https://wa.me/252633003884?text=Hi%20Amiin,%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" class="text-lg font-semibold hover:text-[#25D366] transition-colors">+252 63 3003884</a>
                                 </div>
                             </div>
                         </div>
@@ -546,6 +525,30 @@
             </div>
         </section>
 
+        <section class="py-10 bg-gray-50 dark:bg-darkbg border-t border-gray-100 dark:border-gray-800">
+            <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+                <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 px-4 py-2 flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-gray-400 text-xs font-mono ml-4">amiin@tech-portfolio:~</span>
+                    </div>
+                    <div class="p-6 font-mono text-sm text-green-400 h-64 overflow-y-auto" @click="focusTerminal">
+                        <div class="mb-4 text-gray-300">
+                            Welcome to AmiinTech CLI. <br>
+                            Type <span class="text-yellow-400">help</span> to see available commands.
+                        </div>
+                        <div v-for="(line, idx) in terminalHistory" :key="idx" class="mb-1" v-html="line"></div>
+                        <div class="flex items-center mt-2">
+                            <span class="text-blue-400 mr-2">amiin@guest:~$</span>
+                            <input ref="terminalInputRef" v-model="terminalInput" @keyup.enter="runCommand" type="text" class="bg-transparent outline-none flex-1 text-white" spellcheck="false" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer class="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -575,7 +578,7 @@
                         <ul class="space-y-3">
                             <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-primary"></i> Hargeisa, Somaliland</li>
                             <li class="flex items-center gap-2"><i class="fas fa-envelope text-primary"></i> amiinmoh67@gmail.com</li>
-                            <li class="flex items-center gap-2"><i class="fas fa-phone text-primary"></i> +252 63 3003884</li>
+                            <li class="flex items-center gap-2"><i class="fab fa-whatsapp text-primary"></i> +252 63 3003884</li>
                         </ul>
                     </div>
                 </div>
@@ -601,9 +604,6 @@
                 const isDark = ref(false);
                 const showPreloader = ref(true);
                 const isFadingOut = ref(false);
-
-                const blogPosts = ref([]);
-                const isBlogLoading = ref(true);
 
                 const terminalInput = ref('');
                 const terminalHistory = ref([]);
@@ -632,7 +632,7 @@
                         githubTitle: 'My GitHub Contributions',
                         caseStudiesTitle: 'Featured Case Studies', caseStudiesDesc: 'Real-world problems, solved with data-driven results and modern tech.',
                         readCaseStudy: 'Read Case Study',
-                        blogTitle: 'Thoughts & Insights', blogDesc: 'Sharing knowledge and educating the community is part of my mission (Powered by Hashnode).',
+                        blogTitle: 'Thoughts & Insights', blogDesc: 'Sharing knowledge and educating the community is part of my mission.',
                         letsConnect: 'Let\'s Connect', contactDesc: 'Ready to transform your ideas into scalable digital realities? Drop me a message.'
                     },
                     so: { 
@@ -656,11 +656,12 @@
                         githubTitle: 'Dhaqdhaqaaqayga GitHub',
                         caseStudiesTitle: 'Mashaariicda Muhiimka Ah', caseStudiesDesc: 'Dhibaatooyin dhab ah oo lagu xalliyay xog iyo teknoolojiyad casri ah.',
                         readCaseStudy: 'Akhri Faahfaahinta',
-                        blogTitle: 'Fikradaha & Qormooyinka', blogDesc: 'Wadaagida khibradda iyo in aan bulshada wax baro waa qeyb ka mid ah yoolkayga (Waxa kaxeeya Hashnode).',
+                        blogTitle: 'Fikradaha & Qormooyinka', blogDesc: 'Wadaagida khibradda iyo in aan bulshada wax baro waa qeyb ka mid ah yoolkayga.',
                         letsConnect: 'ila Soo Xiriir', contactDesc: 'Ma diyaar u tahay in aad fikradaada u beddesho xaqiiqo dhijitaal ah? Fariin iisoo reeb.'
                     }
                 });
-const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
+
+                const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                 const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value; };
                 const toggleDarkMode = () => {
                     isDark.value = !isDark.value;
@@ -672,13 +673,12 @@ const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                     isMobileMenuOpen.value = false; 
                 };
 
-                // XALKA CUSUB: Blog Posts oo Hardcoded ah (Marna Cadaan Noqon Maayo)
-                const isBlogLoading = ref(false); // Uma baahnin loading maadaama aanan API sugeynin
+                // XALKA STATIC BLOG-GA (Error-Free)
                 const blogPosts = ref([
                     {
                         tag: 'Tech Trends',
-                        coverImage: null, // Halkan ku rid link-ga sawirka haddii aad hayso
-                        url: 'https://amiinmoh-qalib.hashnode.dev/post-kaagii-koowaad', // Geli link-ga dhabta ah ee maqaalkaaga
+                        coverImage: null, 
+                        url: 'https://amiinmoh-qalib.hashnode.dev/waa-maxay-sababta-laravel-u-tahay-doorashada-koowaad-ee-nidaamyada-dowladda', 
                         title: {
                             en: 'Why Laravel is the Top Choice for Government Systems?',
                             so: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?'
@@ -694,7 +694,7 @@ const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                         url: 'https://amiinmoh-qalib.hashnode.dev/',
                         title: {
                             en: 'How Small Businesses Can Leverage Automation',
-                            so: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation (Nidaam Is-wada)'
+                            so: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation'
                         },
                         brief: {
                             en: 'You don\'t need a massive budget to automate. Learn how simple scripts and smart workflows can save your business hours of manual work.',
@@ -715,7 +715,7 @@ const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                         }
                     }
                 ]);
-                
+
                 const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
@@ -741,8 +741,6 @@ const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
 
                     window.addEventListener('scroll', handleScroll); 
                     AOS.init({ duration: 800, once: true }); 
-                    
-                    fetchHashnodePosts();
 
                     const cursorDot = document.getElementById("cursor-dot");
                     const cursorOutline = document.getElementById("cursor-outline");
@@ -923,7 +921,7 @@ const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                     selectedProject, isDark, showPreloader, isFadingOut,
                     currentLang, i18n, toggleDarkMode, toggleLanguage,
                     openModal, closeModal, techStack, projects,
-                    blogPosts, isBlogLoading,
+                    blogPosts,
                     terminalInput, terminalHistory, terminalInputRef, runCommand, focusTerminal
                 };
             }
