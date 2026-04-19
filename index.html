@@ -77,7 +77,6 @@
         a:hover ~ .cursor-outline, button:hover ~ .cursor-outline { width: 60px; height: 60px; border-color: #38bdf8; background-color: rgba(56, 189, 248, 0.1); }
         @media (max-width: 768px) { body { cursor: auto; } .cursor-dot, .cursor-outline { display: none; } }
 
-        /* Fix for mobile menu delay */
         .mobile-menu-enter-active, .mobile-menu-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
         .mobile-menu-enter-from, .mobile-menu-leave-to { opacity: 0; transform: translateY(-10px); }
     </style>
@@ -92,7 +91,7 @@
 
         <div v-if="showPreloader" class="fixed inset-0 z-[10000] bg-secondary flex items-center justify-center transition-opacity duration-700" :class="{ 'opacity-0': isFadingOut }">
             <h1 class="text-4xl md:text-5xl text-accent font-mono overflow-hidden whitespace-nowrap border-r-4 border-accent animate-typing inline-block">
-                <AmiinTech />
+                &lt;AmiinTech /&gt;
             </h1>
         </div>
 
@@ -120,7 +119,7 @@
                             <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
                         </button>
 
-                        <a href="assets/Amiin_Mohamed_Mowlid_CV.pdf" download class="px-5 py-2 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all font-semibold flex items-center gap-2">
+                        <a href="assets/documents/Amiin_Mohamed_Mowlid_CV.pdf" download class="px-5 py-2 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all font-semibold flex items-center gap-2">
                             <i class="fas fa-file-download"></i> {{ i18n[currentLang].cv }}
                         </a>
                     </div>
@@ -139,7 +138,7 @@
                     <a @click="isMobileMenuOpen = false" href="#about" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].about }}</a>
                     <a @click="isMobileMenuOpen = false" href="#process" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].process }}</a>
                     <a @click="isMobileMenuOpen = false" href="#portfolio" class="text-lg font-medium text-secondary dark:text-white">{{ i18n[currentLang].projects }}</a>
-                    <a @click="isMobileMenuOpen = false" href="assets/Amiin_Mohamed_Mowlid_CV.pdf" download class="text-lg font-bold text-primary dark:text-accent">{{ i18n[currentLang].cv }}</a>
+                    <a @click="isMobileMenuOpen = false" href="assets/documents/Amiin_Mohamed_Mowlid_CV.pdf" download class="text-lg font-bold text-primary dark:text-accent">{{ i18n[currentLang].cv }}</a>
                     
                     <div class="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                         <button @click="toggleLanguage" class="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 font-bold text-primary dark:text-accent flex-1">
@@ -447,7 +446,7 @@
                 </div>
 
                 <div v-if="isBlogLoading" class="flex justify-center my-10">
-                    <i class="fas fa-circle-notch fa-spin text-4xl text-primary"></i>
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-primary animate-spin"></i>
                 </div>
 
                 <div v-else class="grid md:grid-cols-3 gap-8">
@@ -471,7 +470,31 @@
             </div>
         </section>
 
-        <section id="contact" class="py-24 bg-gray-50 dark:bg-darkbg">
+        <section class="py-10 bg-gray-50 dark:bg-darkbg border-t border-gray-100 dark:border-gray-800">
+            <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+                <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
+                    <div class="bg-gray-800 px-4 py-2 flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-gray-400 text-xs font-mono ml-4">amiin@tech-portfolio:~</span>
+                    </div>
+                    <div class="p-6 font-mono text-sm text-green-400 h-64 overflow-y-auto" @click="focusTerminal">
+                        <div class="mb-4 text-gray-300">
+                            Welcome to AmiinTech CLI. <br>
+                            Type <span class="text-yellow-400">help</span> to see available commands.
+                        </div>
+                        <div v-for="(line, idx) in terminalHistory" :key="idx" class="mb-1" v-html="line"></div>
+                        <div class="flex items-center mt-2">
+                            <span class="text-blue-400 mr-2">amiin@guest:~$</span>
+                            <input ref="terminalInputRef" v-model="terminalInput" @keyup.enter="runCommand" type="text" class="bg-transparent outline-none flex-1 text-white" spellcheck="false" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-darkcard rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-gray-100 dark:border-gray-800">
                     <div class="md:w-5/12 p-12 lg:p-16 bg-gradient-to-br from-secondary to-gray-900 text-white relative overflow-hidden" data-aos="fade-right">
@@ -527,30 +550,6 @@
             </div>
         </section>
 
-        <section class="py-10 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
-            <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
-                <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
-                    <div class="bg-gray-800 px-4 py-2 flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-gray-400 text-xs font-mono ml-4">amiin@tech-portfolio:~</span>
-                    </div>
-                    <div class="p-6 font-mono text-sm text-green-400 h-64 overflow-y-auto" @click="focusTerminal">
-                        <div class="mb-4 text-gray-300">
-                            Welcome to AmiinTech CLI. <br>
-                            Type <span class="text-yellow-400">help</span> to see available commands.
-                        </div>
-                        <div v-for="(line, idx) in terminalHistory" :key="idx" class="mb-1" v-html="line"></div>
-                        <div class="flex items-center mt-2">
-                            <span class="text-blue-400 mr-2">amiin@guest:~$</span>
-                            <input ref="terminalInputRef" v-model="terminalInput" @keyup.enter="runCommand" type="text" class="bg-transparent outline-none flex-1 text-white" spellcheck="false" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <footer class="bg-gray-900 text-gray-300 py-16 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -562,7 +561,6 @@
                         <div class="flex gap-4 mt-6">
                             <a href="https://www.linkedin.com/in/amiin-qalib-2304b924b" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
                             <a href="https://github.com/amiin143" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-github"></i></a>
-                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary text-white transition-all"><i class="fab fa-facebook-f"></i></a>
                         </div>
                     </div>
                     
@@ -608,7 +606,6 @@
                 const showPreloader = ref(true);
                 const isFadingOut = ref(false);
 
-                // HASHNODE API Setup (using amiinmoh-qalib)
                 const blogPosts = ref([]);
                 const isBlogLoading = ref(true);
 
@@ -616,7 +613,6 @@
                 const terminalHistory = ref([]);
                 const terminalInputRef = ref(null);
 
-                // FULL TRANSLATION DICTIONARY
                 const currentLang = ref('en');
                 const i18n = ref({
                     en: { 
@@ -681,9 +677,7 @@
                     isMobileMenuOpen.value = false; 
                 };
 
-               // FETCHING FROM YOUR EXACT HASHNODE NEW API (GQL)
                 const fetchHashnodePosts = async () => {
-                    // Hashnode's New GraphQL API structure
                     const query = `
                         query {
                             publication(host: "amiinmoh-qalib.hashnode.dev") {
@@ -693,9 +687,7 @@
                                             title
                                             brief
                                             slug
-                                            coverImage {
-                                                url
-                                            }
+                                            coverImage { url }
                                         }
                                     }
                                 }
@@ -703,7 +695,6 @@
                         }
                     `;
                     try {
-                        // Using the new API endpoint
                         const res = await fetch("https://gql.hashnode.com/", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -711,7 +702,6 @@
                         });
                         const data = await res.json();
                         
-                        // Checking the new data structure
                         if (data.data && data.data.publication && data.data.publication.posts.edges.length > 0) {
                             blogPosts.value = data.data.publication.posts.edges.map(edge => {
                                 const post = edge.node;
@@ -723,11 +713,9 @@
                                 };
                             });
                         } else {
-                            throw new Error("No posts found in the publication");
+                            throw new Error("No posts found");
                         }
                     } catch (error) {
-                        console.error("Hashnode Fetch Error:", error);
-                        // Fallback posts if internet fails or no posts exist
                         blogPosts.value = [
                             { title: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?', brief: 'In this article, I break down how Laravel built-in security features make it perfect for handling sensitive government data...', url: '#', coverImage: null },
                             { title: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation', brief: 'You dont need a massive budget to automate. Learn how simple scripts can save your retail business hours...', url: '#', coverImage: null },
@@ -737,6 +725,7 @@
                         isBlogLoading.value = false;
                     }
                 };
+
                 const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
@@ -796,7 +785,6 @@
                     { name: 'GitHub', icon: 'devicon-github-original dark:text-white' }
                 ]);
 
-                // PROJECTS WITH TRANSLATIONS
                 const projects = ref([
                     {
                         id: 1,
