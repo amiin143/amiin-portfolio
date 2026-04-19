@@ -53,8 +53,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <style>
         ::-webkit-scrollbar { width: 8px; }
@@ -170,7 +174,7 @@
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
                         <a href="#portfolio" class="px-8 py-4 rounded-full bg-primary text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 transition-all">{{ i18n[currentLang].viewWork }}</a>
-                        <a href="#contact" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">{{ i18n[currentLang].letsTalk }}</a>
+                        <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/amiinmoh67'});return false;" class="px-8 py-4 rounded-full bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-600 text-secondary dark:text-white font-bold hover:border-primary hover:text-primary transition-all">{{ i18n[currentLang].letsTalk }}</button>
                     </div>
                 </div>
                 
@@ -178,19 +182,19 @@
                     <div class="absolute top-0 right-0 w-72 h-72 bg-blue-200 dark:bg-blue-900/40 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob hidden md:block"></div>
                     <div class="absolute top-0 -left-4 w-72 h-72 bg-cyan-200 dark:bg-cyan-900/40 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-2000 hidden md:block"></div>
                     <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-[28rem] lg:h-[28rem] mx-auto rounded-[2rem] shadow-2xl overflow-hidden border-8 border-white dark:border-gray-800 bg-white">
-                        <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin Mohamed" class="w-full h-full object-cover">
+                        <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin Mohamed" loading="lazy" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
         </section>
 
-     <section id="about" class="py-20 bg-white dark:bg-darkcard">
+        <section id="about" class="py-20 bg-white dark:bg-darkcard">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col lg:flex-row gap-16 items-start">
                     
                     <div class="lg:w-5/12 w-full" data-aos="fade-up">
                         <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8 mx-auto max-w-sm md:max-w-none">
-                            <img src="assets/images/main-about.JPEG" alt="About Amiin" class="w-full object-cover h-80 md:h-auto lg:h-[500px]">
+                            <img src="assets/images/main-about.JPEG" alt="About Amiin" loading="lazy" class="w-full object-cover h-80 md:h-auto lg:h-[500px]">
                             <div class="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent flex flex-col justify-end p-8">
                                 <h3 class="text-white text-2xl md:text-3xl font-bold">Amiin Mohamed Mowlid</h3>
                                 <p class="text-primary font-medium text-lg">Hargeisa, Somaliland</p>
@@ -211,6 +215,7 @@
                             </div>
                         </div>
                     </div> 
+
                     <div class="lg:w-7/12 w-full text-center md:text-left" data-aos="fade-up" data-aos-delay="100">
                         <h2 class="text-4xl font-bold text-secondary dark:text-white mb-6">{{ i18n[currentLang].aboutTitle }}</h2>
                         
@@ -228,7 +233,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow group">
                                 <div class="h-32 overflow-hidden bg-white">
-                                    <img src="assets/images/googleCertificate.JPEG" alt="Google PM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                    <img src="assets/images/googleCertificate.JPEG" alt="Google PM" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fab fa-google text-blue-500 mr-1"></i> Google Project Mgmt</h5>
@@ -238,7 +243,7 @@
                             
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                                 <div class="h-32 overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600">
-                                     <img src="assets/images/ai-certificate.JPG" alt="AI Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                     <img src="assets/images/ai-certificate.JPG" alt="AI Certificate" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-robot text-purple-500 mr-1"></i> AI & Automation</h5>
@@ -248,7 +253,7 @@
 
                             <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
                                 <div class="h-32 overflow-hidden bg-gradient-to-br from-slate-700 to-slate-900">
-                                     <img src="assets/images/cctv-certificate.JPEG" alt="CCTV Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
+                                     <img src="assets/images/cctv-certificate.JPEG" alt="CCTV Certificate" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="window.open(this.src, '_blank')">
                                 </div>
                                 <div class="p-4 border-t border-gray-100 dark:border-gray-700">
                                     <h5 class="font-bold text-secondary dark:text-white text-md mb-1"><i class="fas fa-video text-slate-400 mr-1"></i> Security Systems</h5>
@@ -266,9 +271,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div> 
-                    </div>
+                </div>
             </div>
         </section>
 
@@ -330,7 +334,7 @@
 
                 <div class="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-md inline-block max-w-full overflow-x-auto text-left" data-aos="fade-up">
                     <h4 class="text-lg font-bold mb-4"><i class="fab fa-github mr-2"></i> {{ i18n[currentLang].githubTitle }}</h4>
-                    <img src="https://ghchart.rshah.org/2563eb/amiin143" alt="Amiin's Github Chart" class="min-w-[600px] opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="https://ghchart.rshah.org/2563eb/amiin143" alt="Amiin's Github Chart" loading="lazy" class="min-w-[600px] opacity-90 hover:opacity-100 transition-opacity">
                 </div>
             </div>
         </section>
@@ -345,7 +349,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div v-for="(project, index) in projects" :key="project.id" class="group bg-white dark:bg-darkcard rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col h-full text-left" data-aos="fade-up" :data-aos-delay="index * 100">
                         <div class="h-56 overflow-hidden relative cursor-pointer" @click="openModal(project)">
-                            <img :src="project.image" :alt="project.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img :src="project.image" :alt="project.title" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <div class="absolute inset-0 bg-secondary/30 group-hover:bg-transparent transition-all"></div>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
@@ -449,7 +453,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div v-for="(post, index) in blogPosts" :key="index" class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 flex flex-col group text-left" data-aos="fade-up" :data-aos-delay="index * 100">
                         <div class="h-48 overflow-hidden bg-gray-200 dark:bg-gray-900 relative">
-                            <img v-if="post.coverImage" :src="post.coverImage" alt="Article Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img v-if="post.coverImage" :src="post.coverImage" alt="Article Cover" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <div v-else class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 group-hover:scale-105 transition-transform duration-500">
                                 <i class="fas fa-newspaper text-5xl opacity-50"></i>
                             </div>
@@ -469,6 +473,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="mt-20 bg-gradient-to-r from-primary to-accent rounded-[2rem] p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden" data-aos="zoom-in">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full mix-blend-overlay filter blur-xl"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full mix-blend-overlay filter blur-xl"></div>
+                    
+                    <div class="relative z-10 max-w-2xl mx-auto">
+                        <i class="fas fa-file-pdf text-4xl mb-4"></i>
+                        <h3 class="text-3xl md:text-4xl font-bold mb-4">{{ i18n[currentLang].newsletterTitle }}</h3>
+                        <p class="text-lg text-blue-100 mb-8">{{ i18n[currentLang].newsletterDesc }}</p>
+                        
+                        <form name="newsletter" method="POST" data-netlify="true" class="flex flex-col md:flex-row gap-4 justify-center">
+                            <input type="hidden" name="form-name" value="newsletter">
+                            <input type="email" name="email" required :placeholder="i18n[currentLang].emailPlaceholder" class="px-6 py-4 rounded-xl text-gray-800 w-full md:w-2/3 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            <button type="submit" class="px-8 py-4 bg-secondary hover:bg-gray-800 text-white font-bold rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                                {{ i18n[currentLang].downloadPdfBtn }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -497,7 +521,7 @@
                     <div v-html="selectedBlogPost.content[currentLang]" class="prose dark:prose-invert max-w-none"></div>
                     
                     <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4">
-                        <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
+                        <img src="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg" alt="Amiin" loading="lazy" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
                         <div>
                             <p class="font-bold text-secondary dark:text-white">Amiin Mohamed Mowlid</p>
                             <p class="text-sm text-gray-500">Author & Full-Stack Developer</p>
@@ -533,6 +557,12 @@
                                     <p class="text-sm text-gray-400 font-medium">WhatsApp Me</p>
                                     <a href="https://wa.me/252633003884?text=Hi%20Amiin,%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" class="text-lg font-semibold hover:text-[#25D366] transition-colors">+252 63 3003884</a>
                                 </div>
+                            </div>
+
+                            <div class="pt-8">
+                                <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/amiinmoh67'});return false;" class="w-full py-4 border-2 border-white/20 hover:bg-white hover:text-secondary rounded-xl font-bold transition-colors flex items-center justify-center gap-2">
+                                    <i class="far fa-calendar-alt text-xl"></i> {{ i18n[currentLang].bookConsultation }}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -644,7 +674,6 @@
                 const isMobileMenuOpen = ref(false);
                 const selectedProject = ref(null);
                 
-                // BLOG MODAL STATE
                 const selectedBlogPost = ref(null);
                 
                 const isDark = ref(false);
@@ -679,7 +708,10 @@
                         caseStudiesTitle: 'Featured Case Studies', caseStudiesDesc: 'Real-world problems, solved with data-driven results and modern tech.',
                         readCaseStudy: 'Read Case Study',
                         blogTitle: 'Thoughts & Insights', blogDesc: 'Sharing knowledge and educating the community is part of my mission.',
-                        letsConnect: 'Let\'s Connect', contactDesc: 'Ready to transform your ideas into scalable digital realities? Drop me a message.'
+                        newsletterTitle: 'Automate Your Business Operations', newsletterDesc: 'Enter your email to download my free PDF guide on 5 simple ways small businesses can use automation today.',
+                        emailPlaceholder: 'Enter your email address', downloadPdfBtn: 'Send Me The PDF',
+                        letsConnect: 'Let\'s Connect', contactDesc: 'Ready to transform your ideas into scalable digital realities? Drop me a message.',
+                        bookConsultation: 'Book a 15-Min Consultation'
                     },
                     so: { 
                         home: 'Hoyga', about: 'Nagu Saabsan', process: 'Nidaamka', projects: 'Mashaariicda', cv: 'Soo Dejiso CV', letsTalk: 'ila Hadal',
@@ -703,7 +735,10 @@
                         caseStudiesTitle: 'Mashaariicda Muhiimka Ah', caseStudiesDesc: 'Dhibaatooyin dhab ah oo lagu xalliyay xog iyo teknoolojiyad casri ah.',
                         readCaseStudy: 'Akhri Faahfaahinta',
                         blogTitle: 'Fikradaha & Qormooyinka', blogDesc: 'Wadaagida khibradda iyo in aan bulshada wax baro waa qeyb ka mid ah yoolkayga.',
-                        letsConnect: 'ila Soo Xiriir', contactDesc: 'Ma diyaar u tahay in aad fikradaada u beddesho xaqiiqo dhijitaal ah? Fariin iisoo reeb.'
+                        newsletterTitle: 'Ganacsigaaga Casriyee', newsletterDesc: 'Geli iimaylkaaga si aad u hesho buug-yare (PDF) bilaash ah oo ku tusaya 5 qaab oo aad ganacsigaaga u otomaatig garayn karto.',
+                        emailPlaceholder: 'Geli iimaylkaaga halkan', downloadPdfBtn: 'iigusoo Dir PDF-ka',
+                        letsConnect: 'ila Soo Xiriir', contactDesc: 'Ma diyaar u tahay in aad fikradaada u beddesho xaqiiqo dhijitaal ah? Fariin iisoo reeb.',
+                        bookConsultation: 'Qabso Ballan 15-Daqiiqo Ah'
                     }
                 });
 
@@ -719,7 +754,6 @@
                     isMobileMenuOpen.value = false; 
                 };
 
-                // BLOG MODAL FUNCTIONS
                 const openBlogModal = (post) => { 
                     selectedBlogPost.value = post; 
                     document.body.style.overflow = 'hidden'; 
@@ -730,36 +764,32 @@
                 };
 
                 const blogPosts = ref([
-                  
-                    // 1. MAQAALKAAGA CUSUB EE HASHNODE (External Link)
                     {
                         tag: 'Web Architecture',
-                        coverImage:'assets/images/blog/portfolio-blog.JPEG', // Haddii aad sawir ku dartay maqaalka Hashnode, link-giisa halkan soo geli mustaqbalka
+                        coverImage: 'assets/images/blog/portfolio-blog.JPEG', 
                         isExternal: true, 
-                        externalUrl: 'https://amiinmoh-qalib.hashnode.dev/how-i-structured-my-portfolio-blog-using-a-simple-api-frontend-netlify', // FIIRO GAAR AH: Halkan ku beddel link-ga saxda ah ee maqaalkaaga ka dib markaad furto
+                        externalUrl: 'https://amiinmoh-qalib.hashnode.dev/how-i-structured-my-portfolio-blog-using-a-simple-api-frontend-netlify', 
                         platform: 'Hashnode', 
                         title: {
                             en: 'How I Structured My Portfolio Blog Using a Simple API',
-                            so: 'Sida aan u habeeyay qaybta Blog-ga ee Portfolio-gayga anigoo isticmaalaya API Fudud'
+                            so: 'Sida aan u habeeyay qaybta Blog-ga ee Portfolio-gayga'
                         },
                         brief: {
                             en: 'While building my portfolio, I wanted a blog section that is easy to manage and does not require a complex backend. Here is how I built it using Frontend and Netlify.',
                             so: 'Markii aan dhisayay portfolio-gayga, waxaan raadinayay nidaam blog oo aan u baahnayn backend adag. Maqaalkan waxaan ku sharraxayaa sidii aan u dhisay.'
                         }
                     },
-       
-
                     {
                         tag: 'Tech & Strategy',
-                        coverImage:'assets/images/blog/tech-blog.JPEG',  // Halkan geli sawir mustaqbalka (Tusaale: assets/images/blog/pm-tech.jpg)
+                        coverImage: 'assets/images/blog/tech-blog.JPEG',  
                         isExternal: false, 
                         title: {
                             en: 'Coding is Not Enough: Why Web Developers Need Project Management Skills',
-                            so: 'Koodh-qoristu Kuma Filna: Sababta Barnaamij-sameeyayaashu Ugu Baahan Yihiin Maamulka Mashaariicda'
+                            so: 'Koodh-qoristu Kuma Filna: Baahida Maamulka Mashaariicda'
                         },
                         brief: {
                             en: 'Many software projects fail not because of bad code, but due to poor planning. Here is why combining tech skills with project management is the ultimate game-changer.',
-                            so: 'Mashaariic badan oo software ah ma fashilmaan koodh xun darteed, balse waa qorshe xumo. Halkan baro sababta isku-darka xirfada tech-ga iyo maamulka mashaariicdu u tahay furaha guusha.'
+                            so: 'Mashaariic badan oo software ah ma fashilmaan koodh xun darteed, balse waa qorshe xumo. Halkan baro sababta isku-darka xirfadaha uu muhiim u yahay.'
                         },
                         content: {
                             en: `
@@ -767,32 +797,29 @@
                                 <p class="mb-4">Many developers fall into the trap of jumping straight into coding without properly defining the scope, gathering client requirements, or setting clear milestones. This almost always leads to "scope creep," missed deadlines, and frustrated clients.</p>
                                 <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">The Project Management Advantage</h4>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
-                                    <li><strong>Clear Communication:</strong> Frameworks like Agile ensure the client is always in the loop, turning them into a partner rather than just a customer.</li>
-                                    <li><strong>Risk Mitigation:</strong> Identifying potential roadblocks before writing a single line of code saves weeks of debugging later.</li>
-                                    <li><strong>Delivering Actual Value:</strong> A project manager focuses on solving the business problem, not just building a cool feature.</li>
+                                    <li><strong>Clear Communication:</strong> Frameworks like Agile ensure the client is always in the loop.</li>
+                                    <li><strong>Risk Mitigation:</strong> Identifying potential roadblocks before writing a single line of code.</li>
+                                    <li><strong>Delivering Actual Value:</strong> Focusing on solving the business problem, not just building a feature.</li>
                                 </ul>
-                                <p>This is exactly why my approach combines a Computer Science background with rigorous Project Planning & Management (MPPM) principles. Whether it is a government security portal or a cultural e-commerce platform, planning the architecture first is what turns a good idea into a reliable, scalable system.</p>
+                                <p>Whether it is a government security portal or a cultural e-commerce platform, planning the architecture first is what turns a good idea into a reliable, scalable system.</p>
                             `,
                             so: `
-                                <p class="mb-4">Dunida maanta xawaaraha ku socota, in la qoro koodh nadiif ah iyadoo la isticmaalayo teknoolojiyad casri ah sida Vue.js ama Laravel waa mid qasab ah. Si kastaba ha ahaatee, aqoonta farsamo (technical skills) oo keliya dammaanad kama qaadi karto guusha mashruuca.</p>
-                                <p class="mb-4">Barnaamij-sameeyayaal badan ayaa ku dhaca dabinka ah inay toos ugu boodaan koodh-qorista iyagoon si fiican u qeexin baaxadda shaqada, ururinin baahiyaha macaamiisha, ama dejin waqtiyo cad-cad. Tani waxay inta badan keentaa in shaqadu is-bedbeddesho (scope creep), waqtigii balanta la dhaafaa, macmiilkuna niyad jabo.</p>
-                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Faa'iidada Maamulka Mashaariicda (Project Management)</h4>
+                                <p class="mb-4">Dunida maanta xawaaraha ku socota, in la qoro koodh nadiif ah iyadoo la isticmaalayo teknoolojiyad casri ah waa mid qasab ah. Si kastaba ha ahaatee, aqoonta farsamo oo keliya dammaanad kama qaadi karto guusha mashruuca.</p>
+                                <p class="mb-4">Barnaamij-sameeyayaal badan ayaa ku dhaca dabinka ah inay toos ugu boodaan koodh-qorista iyagoon si fiican u qeexin baaxadda shaqada. Tani waxay inta badan keentaa in shaqadu is-bedbeddesho.</p>
+                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Faa'iidada Maamulka Mashaariicda</h4>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
-                                    <li><strong>Wada-xiriir Cad:</strong> Nidaamyada sida Agile waxay hubinayaan in macmiilku mar walba la socdo shaqada, taas oo ka dhigaysa saaxiib shaqo halkii uu ka ahaan lahaa macmiil caadi ah.</li>
-                                    <li><strong>Yaraynta Khatarta:</strong> Ogaanshaha dhibaatooyinka imaan kara kahor inta aan koodhka la qorin waxay kaa badbaadinaysaa toddobaadyo dib u saxid ah.</li>
-                                    <li><strong>Keenista Qiimo Dhab ah:</strong> Maareeyaha mashruucu wuxuu diiradda saaraa inuu xalliyo dhibaatada ganacsiga, ee ma aha oo keliya inuu dhiso muuqaal qurux badan.</li>
+                                    <li><strong>Wada-xiriir Cad:</strong> Macmiilku mar walba wuu la socdaa shaqada.</li>
+                                    <li><strong>Yaraynta Khatarta:</strong> Ogaanshaha dhibaatooyinka imaan kara kahor koodhka.</li>
+                                    <li><strong>Keenista Qiimo Dhab ah:</strong> Xallinta dhibaatada ganacsiga si toos ah.</li>
                                 </ul>
-                                <p>Tani waa sababta dhabta ah ee qaab-shaqadeydu ay isugu darto cilmiga Computer Science-ka iyo nidaamyada adag ee Maamulka Mashaariicda (MPPM). Haddii ay ahaan lahayd nidaam dowladeed ama madal ganacsi, in marka hore la naqshadeeyo qaab dhismeedka (Architecture) ayaa ah waxa fikrad wanaagsan u beddela nidaam weyn oo la isku halleyn karo.</p>
                             `
                         }
                     },
-
-                    // 1. EXTERNAL LINK (LinkedIn)
                     {
                         tag: 'Artificial Intelligence',
-                        coverImage: 'assets/images/blog/ai-post.jpg', // Sawirka soo guuri markaad hayso
+                        coverImage: 'assets/images/blog/ai-post.jpg', 
                         isExternal: true, 
-                        externalUrl: 'https://www.linkedin.com/posts/amiin-qalib-2304b924b_artificial-intelligence-is-no-longer-for-activity-7432681121370456064-ztna?utm_source=share&utm_medium=member_desktop&rcm=ACoAAGdOzO8BOKTfqyXFSB2NlAuHeGxz7zNGbis', 
+                        externalUrl: 'https://www.linkedin.com/posts/amiin-qalib-2304b924b_artificial-intelligence-is-no-longer-for-activity-7432681121370456064-ztna', 
                         platform: 'LinkedIn', 
                         title: {
                             en: 'Artificial Intelligence is No Longer Just for Tech Giants',
@@ -801,62 +828,6 @@
                         brief: {
                             en: 'In this LinkedIn post, I discuss how AI is transforming everyday business activities and why every professional needs to adapt.',
                             so: 'Qoraalkan aan soo dhigay LinkedIn, waxaan kaga hadlay sida Sirdoonka Macmalka ah (AI) uu wax uga beddelayo ganacsiyada.'
-                        }
-                    },
-                    // 2. INTERNAL MODAL (Website-ka lagama baxayo)
-                    {
-                        tag: 'Tech Trends',
-                        coverImage:'assets/images/blog/larvel-government-post.PNG', 
-                        isExternal: false, 
-                        title: {
-                            en: 'Why Laravel is the Top Choice for Government Systems?',
-                            so: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?'
-                        },
-                        brief: {
-                            en: 'I break down how Laravel\'s built-in security features and MVC architecture make it perfect for handling sensitive data.',
-                            so: 'Maqaalkan, waxaan ku sharraxayaa sida nidaamka ammaanka ee Laravel uu ugu habboon yahay xogta xasaasiga ah ee dowladda.'
-                        },
-                        content: {
-                            en: `
-                                <p class="mb-4">When building systems for local governments, such as the 31ka May District Security System, the primary concern is always data integrity and security.</p>
-                                <p class="mb-4">Laravel provides built-in protection against SQL injection, cross-site request forgery, and cross-site scripting out of the box.</p>
-                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">The MVC Advantage</h4>
-                                <p>The Model-View-Controller architecture ensures that the business logic is strictly separated from the presentation layer, allowing for cleaner code and easier maintenance when district requirements scale.</p>
-                            `,
-                            so: `
-                                <p class="mb-4">Marka la dhisayo nidaamyada dowladaha hoose, sida Nidaamka Amniga ee Degmada 31ka May, walaaca ugu weyni waa badbaadada iyo ilaalinta xogta.</p>
-                                <p class="mb-4">Laravel wuxuu si toos ah u bixiyaa ilaalin ka dhan ah weerarada internet-ka sida SQL injection iyo XSS.</p>
-                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Faa'iidada MVC</h4>
-                                <p>Qaab dhismeedka Model-View-Controller wuxuu hubinayaa in xeerarka shaqada laga sooco qaybta muuqaalka, taas oo oggolaanaysa koodh nadiif ah oo si fudud loo horumarin karo mustaqbalka.</p>
-                            `
-                        }
-                    },
-                    // 3. INTERNAL MODAL (Website-ka lagama baxayo)
-                    {
-                        tag: 'Automation',
-                        coverImage:'assets/images/blog/small-business-post.png',
-                        isExternal: false,
-                        title: {
-                            en: 'How Small Businesses Can Leverage Automation',
-                            so: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation'
-                        },
-                        brief: {
-                            en: 'You don\'t need a massive budget to automate. Learn how simple scripts can save your business hours of manual work.',
-                            so: 'Uma baahnid miisaaniyad weyn si aad shaqada u fududayso. Baro sida nidaamyo yaryar ay kuugu badbaadin karaan saacado badan.'
-                        },
-                        content: {
-                            en: `
-                                <p class="mb-4">Automation is often viewed as an expensive tool only available to large enterprises. This is a misconception.</p>
-                                <p class="mb-4">Small businesses in Somaliland can leverage simple Python scripts, automated Google Sheets, and basic APIs to eliminate repetitive tasks like manual inventory counting or sending bulk SMS invoices.</p>
-                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Where to Start</h4>
-                                <p>Start by identifying the task you hate doing the most. If it requires copying and pasting data from one place to another, it can likely be automated.</p>
-                            `,
-                            so: `
-                                <p class="mb-4">Inta badan, nidaamka is-wada (Automation) waxaa loo arkaa qalab qaali ah oo ay heli karaan shirkadaha waaweyn oo keliya. Tani waa faham khaldan.</p>
-                                <p class="mb-4">Ganacsiyada yaryar ee Soomaaliland waxay isticmaali karaan nidaamyo fudud si ay meesha uga saaraan shaqooyinka soo noqnoqda sida tirinta alaabta (Inventory) ama dirista fariimaha SMS-ka.</p>
-                                <h4 class="text-xl font-bold mt-6 mb-3 text-secondary dark:text-white">Halkee Laga Bilaabaa?</h4>
-                                <p>Ku bilow inaad ogaato shaqada aad ugu neceb tahay inaad qabato. Haddii ay u baahan tahay in xog meel laga soo koobiyeeeyo oo meel kale la geliyo, hubaal waa la otomaatig garayn karaa.</p>
-                            `
                         }
                     }
                 ]);
@@ -869,7 +840,6 @@
                     if(cmd === 'help') {
                         terminalHistory.value.push(`Available commands: <br> <span class="text-yellow-400">amiin --skills</span> : View my tech stack <br> <span class="text-yellow-400">amiin --contact</span> : Get my email <br> <span class="text-yellow-400">clear</span> : Clear terminal`);
                     } else if(cmd === 'amiin --skills') {
-                        // UPDATED SKILLS HERE
                         terminalHistory.value.push(`[System Check] Loading skills... <br> > Frontend: Vue.js, React, Tailwind CSS, Flutter <br> > Backend: Laravel, PHP, Node.js, Django <br> > Database: MySQL, PostgreSQL <br> > Other: Project Management (MPPM), Git, Agile`);
                     } else if(cmd === 'amiin --contact') {
                         terminalHistory.value.push(`> Initiating contact protocol... <br> > Email: <a href="mailto:amiinmoh67@gmail.com" class="text-white underline">amiinmoh67@gmail.com</a> <br> > Phone: +252 63 3003884`);
@@ -904,20 +874,19 @@
                 const openModal = (project) => { selectedProject.value = project; document.body.style.overflow = 'hidden'; };
                 const closeModal = () => { selectedProject.value = null; document.body.style.overflow = 'auto'; };
 
-                // ADDED POSTGRESQL, FLUTTER, DJANGO
                 const techStack = ref([
                     { name: 'Vue.js', icon: 'devicon-vuejs-plain colored' },
                     { name: 'React.js', icon: 'devicon-react-original colored' },
-                    { name: 'Flutter', icon: 'devicon-flutter-plain colored' }, // NEW
+                    { name: 'Flutter', icon: 'devicon-flutter-plain colored' }, 
                     { name: 'Node.js', icon: 'devicon-nodejs-plain colored' },
                     { name: 'Python', icon: 'devicon-python-plain colored' },
-                    { name: 'Django', icon: 'devicon-django-plain colored' }, // NEW
+                    { name: 'Django', icon: 'devicon-django-plain colored' }, 
                     { name: 'PHP', icon: 'devicon-php-plain colored' },
                     { name: 'Laravel', icon: 'devicon-laravel-plain colored' },
                     { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
                     { name: 'Tailwind CSS', icon: 'devicon-tailwindcss-plain colored' },
                     { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
-                    { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored' }, // NEW
+                    { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored' }, 
                     { name: 'Figma', icon: 'devicon-figma-plain colored' },
                     { name: 'GitHub', icon: 'devicon-github-original dark:text-white' }
                 ]);
@@ -1044,7 +1013,7 @@
                         },
                         isFlagship: false,
                         category: 'Personal Branding',
-                        image: 'assets/images/portfolio/portfolio-project.png',
+                        image: 'assets/images/portfolio/img-portfolio-1.png',
                         demoLink: '#',
                         pdfLink: null,
                         architecture: ['User Browser', 'Vue 3 Virtual DOM', 'Tailwind Utilities', 'Netlify Edge Deploy'],
@@ -1070,7 +1039,7 @@
                     selectedProject, isDark, showPreloader, isFadingOut,
                     currentLang, i18n, toggleDarkMode, toggleLanguage,
                     openModal, closeModal, techStack, projects,
-                    blogPosts, selectedBlogPost, openBlogModal, closeBlogModal, // ADDED BLOG MODAL VARIABLES
+                    blogPosts, selectedBlogPost, openBlogModal, closeBlogModal, 
                     terminalInput, terminalHistory, terminalInputRef, runCommand, focusTerminal
                 };
             }
