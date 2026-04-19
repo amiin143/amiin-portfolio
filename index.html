@@ -438,31 +438,27 @@
             </div>
         </div>
 
-        <section id="blog" class="py-20 bg-white dark:bg-darkcard">
+       <section id="blog" class="py-20 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
                     <h2 class="text-4xl font-bold text-secondary dark:text-white mb-4">{{ i18n[currentLang].blogTitle }}</h2>
                     <p class="text-gray-600 dark:text-gray-400 text-lg">{{ i18n[currentLang].blogDesc }}</p>
                 </div>
 
-                <div v-if="isBlogLoading" class="flex justify-center my-10">
-                    <i class="fas fa-circle-notch fa-spin text-4xl text-primary animate-spin"></i>
-                </div>
-
-                <div v-else class="grid md:grid-cols-3 gap-8">
-                    <div v-for="(post, index) in blogPosts" :key="index" class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700 flex flex-col group" data-aos="fade-up" :data-aos-delay="index * 100">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div v-for="(post, index) in blogPosts" :key="index" class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 flex flex-col group" data-aos="fade-up" :data-aos-delay="index * 100">
                         <div class="h-48 overflow-hidden bg-gray-200 dark:bg-gray-900 relative">
-                            <img v-if="post.coverImage" :src="post.coverImage" alt="Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div v-else class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                            <img v-if="post.coverImage" :src="post.coverImage" alt="Article Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div v-else class="w-full h-full flex items-center justify-center text-gray-400 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 group-hover:scale-105 transition-transform duration-500">
                                 <i class="fas fa-newspaper text-5xl opacity-50"></i>
                             </div>
-                            <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Hashnode</div>
+                            <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">{{ post.tag }}</div>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold text-secondary dark:text-white mb-3 group-hover:text-primary transition-colors">{{ post.title }}</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{{ post.brief }}</p>
-                            <a :href="post.url" target="_blank" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:underline">
-                                Read Article <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                            <h3 class="text-xl font-bold text-secondary dark:text-white mb-3 group-hover:text-primary transition-colors leading-snug">{{ post.title[currentLang] }}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">{{ post.brief[currentLang] }}</p>
+                            <a :href="post.url" target="_blank" class="mt-auto inline-flex items-center text-primary font-bold text-sm hover:text-secondary dark:hover:text-white transition-colors">
+                                Read Full Article <i class="fas fa-arrow-right ml-2 text-xs"></i>
                             </a>
                         </div>
                     </div>
@@ -664,8 +660,7 @@
                         letsConnect: 'ila Soo Xiriir', contactDesc: 'Ma diyaar u tahay in aad fikradaada u beddesho xaqiiqo dhijitaal ah? Fariin iisoo reeb.'
                     }
                 });
-
-                const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
+const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
                 const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value; };
                 const toggleDarkMode = () => {
                     isDark.value = !isDark.value;
@@ -677,55 +672,50 @@
                     isMobileMenuOpen.value = false; 
                 };
 
-                const fetchHashnodePosts = async () => {
-                    const query = `
-                        query {
-                            publication(host: "amiinmoh-qalib.hashnode.dev") {
-                                posts(first: 3) {
-                                    edges {
-                                        node {
-                                            title
-                                            brief
-                                            slug
-                                            coverImage { url }
-                                        }
-                                    }
-                                }
-                            }
+                // XALKA CUSUB: Blog Posts oo Hardcoded ah (Marna Cadaan Noqon Maayo)
+                const isBlogLoading = ref(false); // Uma baahnin loading maadaama aanan API sugeynin
+                const blogPosts = ref([
+                    {
+                        tag: 'Tech Trends',
+                        coverImage: null, // Halkan ku rid link-ga sawirka haddii aad hayso
+                        url: 'https://amiinmoh-qalib.hashnode.dev/post-kaagii-koowaad', // Geli link-ga dhabta ah ee maqaalkaaga
+                        title: {
+                            en: 'Why Laravel is the Top Choice for Government Systems?',
+                            so: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?'
+                        },
+                        brief: {
+                            en: 'In this article, I break down how Laravel\'s built-in security features and MVC architecture make it perfect for handling sensitive data.',
+                            so: 'Maqaalkan, waxaan ku sharraxayaa sida nidaamka ammaanka ee Laravel uu ugu habboon yahay in loo adeegsado xogta xasaasiga ah ee dowladda.'
                         }
-                    `;
-                    try {
-                        const res = await fetch("https://gql.hashnode.com/", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ query })
-                        });
-                        const data = await res.json();
-                        
-                        if (data.data && data.data.publication && data.data.publication.posts.edges.length > 0) {
-                            blogPosts.value = data.data.publication.posts.edges.map(edge => {
-                                const post = edge.node;
-                                return {
-                                    title: post.title,
-                                    brief: post.brief,
-                                    url: `https://amiinmoh-qalib.hashnode.dev/${post.slug}`,
-                                    coverImage: post.coverImage ? post.coverImage.url : null
-                                };
-                            });
-                        } else {
-                            throw new Error("No posts found");
+                    },
+                    {
+                        tag: 'Automation',
+                        coverImage: null,
+                        url: 'https://amiinmoh-qalib.hashnode.dev/',
+                        title: {
+                            en: 'How Small Businesses Can Leverage Automation',
+                            so: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation (Nidaam Is-wada)'
+                        },
+                        brief: {
+                            en: 'You don\'t need a massive budget to automate. Learn how simple scripts and smart workflows can save your business hours of manual work.',
+                            so: 'Uma baahnid miisaaniyad weyn si aad shaqada u fududayso. Baro sida nidaamyo yaryar ay ganacsigaaga uga badbaadin karaan saacado badan oo shaqo gacan ah.'
                         }
-                    } catch (error) {
-                        blogPosts.value = [
-                            { title: 'Waa maxay sababta Laravel u tahay doorashada koowaad ee Nidaamyada Dowladda?', brief: 'In this article, I break down how Laravel built-in security features make it perfect for handling sensitive government data...', url: '#', coverImage: null },
-                            { title: 'Sida Ganacsiyada Yaryari u Isticmaali Karaan Automation', brief: 'You dont need a massive budget to automate. Learn how simple scripts can save your retail business hours...', url: '#', coverImage: null },
-                            { title: 'Agile vs Waterfall in the Somali Tech Market', brief: 'Applying international project management frameworks requires local context. Here is how I adapt PM principles...', url: '#', coverImage: null }
-                        ];
-                    } finally {
-                        isBlogLoading.value = false;
+                    },
+                    {
+                        tag: 'Project Management',
+                        coverImage: null,
+                        url: 'https://amiinmoh-qalib.hashnode.dev/',
+                        title: {
+                            en: 'Agile vs Waterfall: Adapting Frameworks for the Local Market',
+                            so: 'Agile iyo Waterfall: Sida Nidaamyada Caalamiga ah loogu waafajiyo Suuqayaga'
+                        },
+                        brief: {
+                            en: 'Applying international project management frameworks requires local context. Here is how I adapt PM principles for local clients.',
+                            so: 'In la isticmaalo nidaamyada maamulka mashaariicda caalamiga ah waxay u baahan tahay faham maxalli ah. Halkan waxaan ku wadaagayaa siday u shaqeeyaan.'
+                        }
                     }
-                };
-
+                ]);
+                
                 const focusTerminal = () => { if(terminalInputRef.value) terminalInputRef.value.focus(); };
                 const runCommand = () => {
                     const cmd = terminalInput.value.trim().toLowerCase();
