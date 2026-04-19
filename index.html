@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AmiinTech - Modern Portfolio & Solutions</title>
+
+    <meta name="description" content="AmiinTech - Full Stack Web Developer & Project Planner based in Hargeisa.">
+    <meta property="og:title" content="AmiinTech - Modern Portfolio & Solutions">
+    <meta property="og:description" content="Building systems that matter. Bridging Code and Strategy.">
+    <meta property="og:image" content="assets/images/hero-area/WhatsApp Image 2026-01-25 at 21.23.53 (1).jpeg">
+    <meta property="og:url" content="https://amiintech.com">
+    <meta property="og:type" content="website">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX'); // Halkaan waxaad ku beddeli doontaa ID-gaaga dhabta ah
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -27,10 +42,8 @@
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -48,7 +61,7 @@
         .dark .glass { background: rgba(15, 23, 42, 0.85); border-bottom: 1px solid rgba(255,255,255,0.1); }
 
         /* Custom Cursor Elements */
-        body { cursor: none; } /* Hide default cursor for desktop */
+        body { cursor: none; } 
         .cursor-dot, .cursor-outline {
             position: fixed;
             top: 0; left: 0;
@@ -60,7 +73,6 @@
         .cursor-dot { width: 8px; height: 8px; background-color: #2563eb; }
         .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(37, 99, 235, 0.5); transition: width 0.2s, height 0.2s; }
         
-        /* Hover effect for cursor */
         a:hover ~ .cursor-outline, button:hover ~ .cursor-outline { width: 60px; height: 60px; border-color: #38bdf8; background-color: rgba(56, 189, 248, 0.1); }
 
         @media (max-width: 768px) { body { cursor: auto; } .cursor-dot, .cursor-outline { display: none; } }
@@ -74,23 +86,32 @@
 
     <div id="app">
 
+        <a href="#contact" class="fixed bottom-8 right-8 z-50 bg-primary text-white p-4 rounded-full shadow-2xl hover:bg-blue-700 hover:scale-110 transition-all duration-300 flex items-center justify-center group">
+            <i class="fas fa-paper-plane text-xl group-hover:animate-bounce"></i>
+            <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 ease-in-out font-bold ml-0 group-hover:ml-2">Let's Talk</span>
+        </a>
+
         <nav class="fixed w-full z-40 transition-all duration-300" :class="{ 'glass shadow-sm': isScrolled, 'bg-transparent': !isScrolled }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-20 items-center">
                     <a href="#" class="text-2xl font-extrabold tracking-tighter text-secondary dark:text-white">Amiin<span class="text-primary">Tech.</span></a>
                     
                     <div class="hidden md:flex space-x-6 items-center">
-                        <a href="#home" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">Home</a>
-                        <a href="#about" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">About</a>
-                        <a href="#process" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">Process</a>
-                        <a href="#portfolio" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">Projects</a>
+                        <a href="#home" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">{{ i18n[currentLang].home }}</a>
+                        <a href="#about" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">{{ i18n[currentLang].about }}</a>
+                        <a href="#process" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">{{ i18n[currentLang].process }}</a>
+                        <a href="#portfolio" class="hover:text-primary transition-colors font-medium text-secondary dark:text-gray-300">{{ i18n[currentLang].projects }}</a>
                         
+                        <button @click="toggleLanguage" class="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary dark:text-accent font-bold hover:scale-110 transition-transform text-sm bg-white dark:bg-gray-800">
+                            {{ currentLang === 'en' ? 'SO' : 'EN' }}
+                        </button>
+
                         <button @click="toggleDarkMode" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-yellow-500 dark:text-yellow-300 hover:scale-110 transition-transform">
                             <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
                         </button>
 
                         <a href="assets/Amiin_Mohamed_Mowlid_CV.pdf" download class="px-5 py-2 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all font-semibold flex items-center gap-2">
-                            <i class="fas fa-file-download"></i> Download CV
+                            <i class="fas fa-file-download"></i> {{ i18n[currentLang].cv }}
                         </a>
                     </div>
                 </div>
@@ -169,6 +190,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mt-8 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-md">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+                                <span class="text-sm font-bold text-gray-600 dark:text-gray-300"><i class="fas fa-video text-red-500 mr-2"></i> Quick Video Introduction</span>
+                            </div>
+                            <div class="aspect-video bg-gray-200 dark:bg-gray-900 relative flex items-center justify-center group">
+                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" title="AmiinTech Intro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full absolute inset-0 z-10 opacity-0 hover:opacity-100 transition-opacity duration-300"></iframe>
+                                <div class="text-center z-0">
+                                    <i class="fas fa-play-circle text-5xl text-primary mb-2 opacity-70 group-hover:scale-110 transition-transform"></i>
+                                    <p class="text-gray-500 dark:text-gray-400 font-medium text-sm">Hover to play intro</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -480,13 +515,17 @@
             setup() {
                 const isScrolled = ref(false);
                 const selectedProject = ref(null);
-                
-                // Dark Mode State
                 const isDark = ref(false);
+                
+                // Multilingual Setup (English/Somali Dictionary for Navbar Demo)
+                const currentLang = ref('en');
+                const i18n = ref({
+                    en: { home: 'Home', about: 'About', process: 'Process', projects: 'Projects', cv: 'Download CV' },
+                    so: { home: 'Hoyga', about: 'Nagu Saabsan', process: 'Nidaamka', projects: 'Mashaariicda', cv: 'Soo Dejiso CV' }
+                });
 
                 const handleScroll = () => { isScrolled.value = window.scrollY > 20; };
 
-                // Toggle Dark Mode Function
                 const toggleDarkMode = () => {
                     isDark.value = !isDark.value;
                     if (isDark.value) {
@@ -496,11 +535,14 @@
                     }
                 };
 
+                const toggleLanguage = () => {
+                    currentLang.value = currentLang.value === 'en' ? 'so' : 'en';
+                };
+
                 onMounted(() => { 
                     window.addEventListener('scroll', handleScroll); 
-                    AOS.init({ duration: 800, once: true }); // Initialize Animations
+                    AOS.init({ duration: 800, once: true }); 
                     
-                    // Custom Cursor Logic
                     const cursorDot = document.getElementById("cursor-dot");
                     const cursorOutline = document.getElementById("cursor-outline");
                     window.addEventListener("mousemove", function (e) {
@@ -508,7 +550,6 @@
                         const posY = e.clientY;
                         cursorDot.style.left = `${posX}px`;
                         cursorDot.style.top = `${posY}px`;
-                        // Slight delay for the outline for a cool effect
                         cursorOutline.animate({
                             left: `${posX}px`,
                             top: `${posY}px`
@@ -542,7 +583,6 @@
                     { name: 'GitHub', icon: 'devicon-github-original dark:text-white' }
                 ]);
 
-                // 5 Projects (Separated Hidoraac & 31ka May + Added Metrics)
                 const projects = ref([
                     {
                         id: 1,
@@ -550,7 +590,8 @@
                         shortDesc: 'A modern, full-stack e-commerce and rental platform dedicated to preserving and trading Somali cultural heritage items.',
                         isFlagship: true,
                         category: 'E-commerce',
-                        image: 'assets/images/portfolio/Screenshot 2026-04-18 234457.png', // demoLink: 'http://hidoraac.great-site.net/',
+                        image: 'assets/images/portfolio/Screenshot 2026-04-18 234457.png',
+                        demoLink: 'http://hidoraac.great-site.net/',
                         tags: ['PHP', 'MySQL', 'Bootstrap 5', 'Javascript', 'UI/UX'],
                         role: 'Lead Developer & System Architect',
                         problem: 'There was a lack of a centralized, digital marketplace for Somali traditional items (Hidaha iyo Dhaqanka). Customers and vendors struggled with manual tracking of rentals and disorganized inventory.',
@@ -563,7 +604,8 @@
                         shortDesc: 'A centralized local government platform built in 2025 for real-time security reporting and administrative control.',
                         isFlagship: true,
                         category: 'Government Tech',
-                        image: 'assets/images/portfolio/img-1.PNG', // demoLink: null,
+                        image: 'assets/images/portfolio/img-1.PNG',
+                        demoLink: null,
                         tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Blade'],
                         role: 'Project Planner & Full-Stack Developer',
                         problem: 'The local government relied heavily on paper trails for security incidents, leading to severe delays in response times and lost data across departments.',
@@ -576,7 +618,8 @@
                         shortDesc: 'A digital solution replacing manual attendance, improving accuracy and record-keeping for schools.',
                         isFlagship: false,
                         category: 'EdTech Web App',
-                        image: 'assets/images/portfolio/img-student-3.png', // demoLink: null,
+                        image: 'assets/images/portfolio/img-student-3.png',
+                        demoLink: null,
                         tags: ['PHP', 'Bootstrap', 'JavaScript', 'MySQL'],
                         role: 'System Architect & Developer',
                         problem: 'Schools relied on paper-based registers, making it time-consuming for teachers and nearly impossible to quickly generate reports on chronic absenteeism.',
@@ -589,7 +632,8 @@
                         shortDesc: 'A collection of real-world remote projects delivered during various internships and freelance contracts.',
                         isFlagship: false,
                         category: 'Professional Experience',
-                        image: 'assets/images/portfolio/img-intern-1.png', // demoLink: null,
+                        image: 'assets/images/portfolio/img-intern-1.png',
+                        demoLink: null,
                         tags: ['React', 'Firebase', 'SEO', 'Git'],
                         role: 'Remote Collaborator',
                         problem: 'Startups needed quick, reliable modern frontend interfaces to launch their products under tight deadlines.',
@@ -602,7 +646,8 @@
                         shortDesc: 'A lightning-fast, data-driven portfolio with Dark Mode and Interactive UI designed to showcase my capabilities.',
                         isFlagship: false,
                         category: 'Personal Branding',
-                        image: 'assets/images/portfolio/img-portfolio-1.png', // demoLink: '#',
+                        image: 'assets/images/portfolio/img-portfolio-1.png',
+                        demoLink: '#',
                         tags: ['Vue 3', 'Tailwind CSS', 'AOS', 'Netlify'],
                         role: 'UI/UX Designer & Developer',
                         problem: 'My previous portfolio relied on outdated plugins and lacked the modern aesthetic needed to attract high-tier clients.',
@@ -615,7 +660,10 @@
                     isScrolled,
                     selectedProject,
                     isDark,
+                    currentLang,
+                    i18n,
                     toggleDarkMode,
+                    toggleLanguage,
                     openModal,
                     closeModal,
                     techStack,
