@@ -271,6 +271,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div> 
                 </div>
             </div>
@@ -483,13 +484,17 @@
                         <h3 class="text-3xl md:text-4xl font-bold mb-4">{{ i18n[currentLang].newsletterTitle }}</h3>
                         <p class="text-lg text-blue-100 mb-8">{{ i18n[currentLang].newsletterDesc }}</p>
                         
-                        <form name="newsletter" method="POST" data-netlify="true" class="flex flex-col md:flex-row gap-4 justify-center">
+                        <form name="newsletter" method="POST" data-netlify="true" class="flex flex-col md:flex-row gap-4 justify-center" @submit.prevent="handleNewsletterSubmit">
                             <input type="hidden" name="form-name" value="newsletter">
-                            <input type="email" name="email" required :placeholder="i18n[currentLang].emailPlaceholder" class="px-6 py-4 rounded-xl text-gray-800 w-full md:w-2/3 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            <input type="email" name="email" required v-model="newsletterEmail" :placeholder="i18n[currentLang].emailPlaceholder" class="px-6 py-4 rounded-xl text-gray-800 w-full md:w-2/3 focus:outline-none focus:ring-4 focus:ring-blue-300">
                             <button type="submit" class="px-8 py-4 bg-secondary hover:bg-gray-800 text-white font-bold rounded-xl transition-colors shadow-lg whitespace-nowrap">
                                 {{ i18n[currentLang].downloadPdfBtn }}
                             </button>
                         </form>
+
+                        <p v-if="showNewsletterSuccess" class="mt-4 text-green-300 font-bold animate-pulse">
+                            <i class="fas fa-check-circle mr-1"></i> Check your downloads! The PDF is on its way.
+                        </p>
                     </div>
                 </div>
 
@@ -683,6 +688,35 @@
                 const terminalInput = ref('');
                 const terminalHistory = ref([]);
                 const terminalInputRef = ref(null);
+
+                const newsletterEmail = ref('');
+                const showNewsletterSuccess = ref(false);
+
+                const handleNewsletterSubmit = (e) => {
+                    if (newsletterEmail.value) {
+                        const link = document.createElement('a');
+                        link.href = 'assets/Automate_Your_Business_Operations_Book.pdf'; 
+                        link.download = 'Automate_Your_Business_Operations_AmiinTech.pdf';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+
+                        const form = e.target;
+                        const formData = new FormData(form);
+                        
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams(formData).toString()
+                        })
+                        .then(() => {
+                            showNewsletterSuccess.value = true;
+                            newsletterEmail.value = '';
+                            setTimeout(() => { showNewsletterSuccess.value = false; }, 5000);
+                        })
+                        .catch((error) => alert('Error sending email.'));
+                    }
+                };
 
                 const currentLang = ref('en');
                 const i18n = ref({
@@ -950,7 +984,7 @@
                         category: 'E-commerce',
                         image: 'assets/images/portfolio/Screenshot 2026-04-18 234457.png',
                         demoLink: 'http://hidoraac.great-site.net/',
-                        pdfLink: 'assets/documents/Hidoraac_Case_Study.pdf',
+                        pdfLink: 'assets/Case_Study_Hidoraac_System.pdf',
                         architecture: ['Customer/Vendor', 'Vue.js / Tailwind UI', 'Laravel API Server', 'MySQL Database'],
                         tags: ['PHP', 'MySQL', 'Bootstrap 5', 'Javascript', 'UI/UX'],
                         role: 'Lead Developer & System Architect',
@@ -978,7 +1012,7 @@
                         category: 'Government Tech',
                         image: 'assets/images/portfolio/img-1.PNG',
                         demoLink: null,
-                        pdfLink: 'assets/documents/31ka_May_Case_Study.pdf',
+                        pdfLink: 'assets/Case_Study_Security_Management_System.pdf',
                         architecture: ['Gov Officials', 'Secure Web Portal', 'Laravel Controller', 'Encrypted MySQL'],
                         tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Blade'],
                         role: 'Project Planner & Full-Stack Developer',
@@ -1087,7 +1121,8 @@
                     currentLang, i18n, toggleDarkMode, toggleLanguage,
                     openModal, closeModal, techStack, projects,
                     blogPosts, selectedBlogPost, openBlogModal, closeBlogModal, 
-                    terminalInput, terminalHistory, terminalInputRef, runCommand, focusTerminal
+                    terminalInput, terminalHistory, terminalInputRef, runCommand, focusTerminal,
+                    newsletterEmail, showNewsletterSuccess, handleNewsletterSubmit // ADDED HERE
                 };
             }
         }).mount('#app');
